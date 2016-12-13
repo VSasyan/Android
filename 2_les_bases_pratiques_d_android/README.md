@@ -291,3 +291,11 @@ Voici le code XML obtenu :
     
 </RelativeLayout>
 ```
+
+## Les points à retenir
+
+Les **ressources** permettent de gérer des *vues*, des images et des *constantes* (chaînes de caractères et autres) selon la *langue de l'utilisateur*.
+
+Les **méthodes** associées aux **activités** permettent de coder des fonctionnalités.
+
+Il est possible d'**accèder aux éléments des vues depuis ces méthodes** pour agir dessus.
