@@ -11,11 +11,11 @@
 
 ## Les bases (théoriques) d'Android
 
-[Les bases (théoriques) d'Android](les_bases_theoriques_d_android.md)
+[Les bases (théoriques) d'Android](1_les_bases_theoriques_d_android.md)
 
 ## Les bases (pratiques) d'Android
 
-[Les bases (pratiques) d'Android](les_bases_pratiques_d_android.md)
+[Les bases (pratiques) d'Android](2_les_bases_pratiques_d_android.md)
 
 ## Les capteurs
 
