@@ -21,7 +21,7 @@
 
 ## Organisation
 
-### Anatomie des projets
+### Structure d'un projet
 
 ![]( Image présentant l'anatomie)
 
@@ -49,6 +49,3 @@
  * Activités : controlleurs associés aux vues
  * Services : classes spécialisées permettant de gérer la données
  * ...
- 
-### Structure d'un projet
-
