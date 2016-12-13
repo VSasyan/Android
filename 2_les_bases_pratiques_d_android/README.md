@@ -4,9 +4,10 @@ Pour mettre en pratique l'utilisation d'Android Studio et prendre
 en main un projet Android, nous allons créer une application simulant
 un lancé de pièce (pile ou face).
 
+
 ## Le principe de l'application
 
-L'application sera composée d'une vue permettant d'afficher un text (TextView).
+L'application sera composée d'une vue permettant d'afficher du texte (TextView).
 Il y aura, stockés dans les ressources, deux labels correspondant aux résultats
 en français et anglais ("Pile" ou "Face" et "Tail" ou "Head").
 
@@ -15,6 +16,7 @@ affiche le label correspondant. L'utilisateur peut effectuer un nouveau lancé e
 
 Grâce à la bonne utilisation des fichiers de ressources, l'application est
 automatiquement traduite (vous pouvez changer la langue de votre téléphone pour voir).
+
 
 ## Mise en place
 
@@ -30,7 +32,7 @@ Regardez la structure du projet créé par Android Studio :
 
 ![Structure du projet](screens/2_environnement_1_structure.png)
 
-Ouvrez les fichiers `manifest`, `DiceActivity`, et `activity_dice` en mode Deisgn et Text :
+Ouvrez les fichiers `manifest`, `DiceActivity`, et `activity_dice` en mode Design et Text :
 
 ![Structure du projet](screens/2_environnement_1_manifest.png)
 
@@ -40,12 +42,13 @@ Ouvrez les fichiers `manifest`, `DiceActivity`, et `activity_dice` en mode Deisg
 
 ![Structure du projet](screens/2_environnement_2_manifest.png)
 
+
 ## Pas à pas des modifications
 
 ### 1) Modification de la vue
 
-Dans un premier temps, il faut modifier la vue pour ajouter une zone de text.
-Modifier le TextView automatiquement ajouté par Android Studio : rennommez le en `tv_dice_results`, agrandissez-le pour qu'il prenne tous l'espace et vider le text qu'il contient.
+Dans un premier temps, il faut modifier la vue pour ajouter une zone de texte.
+Modifier le TextView automatiquement ajouté par Android Studio : renommez le en `tv_dice_results`, agrandissez-le pour qu'il prenne tous l'espace et vider le texte qu'il contient.
 
 Vous devez obtenir le code suivant :
 
@@ -65,7 +68,7 @@ Vous devez obtenir le code suivant :
 
 ### 2) Ajout des labels dans les fichiers strings
 
-Ouvrez le fichier `res/values/string.xml`. Android Studio doit automatiquement afficher un mesage vous proposant de traduire, cliquez sur « Open editor » (sinon faites un clique-droit sur le fichier `string.xml` et choisissez « Open Translations Editor »).
+Ouvrez le fichier `res/values/string.xml`. Android Studio doit automatiquement afficher un message vous proposant de traduire, cliquez sur « Open editor » (sinon faites un clique-droit sur le fichier `string.xml` et choisissez « Open Translations Editor »).
 
 Cliquez sur la petite croix verte :
 
@@ -75,7 +78,7 @@ Remplissez la fenêtre (faites de même avec « head ») :
 
 ![Fenêtre pour « tail »](screens/3_res_2_tail.png)
 
-Cliquez sur la petite Terre bleue et selectionnez « French ».
+Cliquez sur la petite Terre bleue et sélectionnez « French ».
 
 ![Terre bleue](screens/3_res_1_ajouter_string.png)
 
@@ -141,14 +144,14 @@ Vous utilisez des librairies, il faut donc les importer (Android Studio arrive t
 
 ### 4) Lancement de l'application
 
-Connectez votre téléphone à l'ordinateur et lancez le programme dans Android Studio (Maj+F10).
-Android Studio ouvre une fenêtre, selectionnez votre mobile. L'application doit se lancer sur votre téléphone !
+Connectez votre téléphone à l'ordinateur et lancez le programme dans Android Studio (`Maj+F10`).
+Android Studio ouvre une fenêtre : sélectionnez votre mobile. L'application doit se lancer sur votre téléphone !
 
 ### 5) Ajout du bouton
 
 Votre programme fonctionne ! On va maintenant ajouter un bouton pour que l'utilisateur puisse relancer une pièce !
 
-Ajouter un bouton dans la vue, en haut, nommez-le `b_coin_flip`. Au clique (onClick), on doit lancer la fonctionne `coinFlip` (à ajouter ensuite à l'activité `DiceActivity`). Personnalisez le label du bouton en utilisant une ressource...
+Ajouter un bouton dans la vue, en haut, nommez-le `b_coin_flip`. Au clique (attribut `onClick`), on doit lancer la fonctionne `coinFlip` (à ajouter ensuite à l'activité `DiceActivity`). Personnalisez le label du bouton en utilisant une ressource...
 
 Voici le code XML obtenu :
 
@@ -191,18 +194,17 @@ Voici le code XML obtenu :
 </RelativeLayout>
 ```
 
-LA ligne la plus important est le `android:onClick="coinFlip"`, qui permet d'associé le clique d'un utilisateur sur le bouton à la methode `coinFlip` de l'activité `DiceActivity`. Cela fonction **uniquement** car l'activité et la vue sont associées. Deplus, la methode doit être **publique**.
+La **ligne la plus important** est le `android:onClick="coinFlip"`, qui permet d'associer le clique d'un utilisateur sur le bouton à la méthode `coinFlip` de l'activité `DiceActivity`. Cela fonctionne **uniquement** car l'activité et la vue sont associées. De plus, la méthode doit être **publique**.
 
 ### 6) Ajout de la fonction
 
 Retourner dans l'activité `DiceActivity`. Ajouter une fonction publique `coinFlip`.
 Réagencer le code pour que le programme ajoute les lancés à la suite des autres.
 
-Modifiez la methode `onCreate` pour qu'elle appelle la fonction coinFlip (au lieu de dupliquer le code).
+Modifiez la méthode `onCreate` pour qu'elle appelle la fonction coinFlip (au lieu de dupliquer le code).
 
-Note : signature de la fonction `coinFlip`
-
-La fonction `coinFlip` doit avoir une signature particulière pour être appelée par l'évènement `onClick` : elle ne doit rien retrouner (`void`) et prendre en paramètre une instance de la classe `View` : `void coinFlip(View view)`.
+Note : signature de la fonction `coinFlip`  
+La fonction `coinFlip` doit avoir une signature particulière pour être appelée par l'évènement `onClick` : elle ne doit rien retourner (`void`) et prendre en paramètre une instance de la classe `View` : `void coinFlip(View view)`.
 Pour appeler cette fonction, il vous faudra donc lui passer une instance nulle en paramètre : `coinFlip(null);`.
 
 Voici le résultat attendu :
@@ -246,7 +248,7 @@ public class DiceActivity extends AppCompatActivity {
 
 ### 7) Scroll
 
-Si l'utilisateur fait beaucoup de pile ou face, il ne pourra pas scroller pour vois les derniers. Pour cela, il faut mettre le TextView dans une ScrollView.
+Si l'utilisateur fait beaucoup de « pile ou face », il ne pourra pas scroller pour voir les derniers. Pour cela, il faut mettre le TextView dans une ScrollView.
 
 Voici le code XML obtenu :
 
@@ -294,8 +296,8 @@ Voici le code XML obtenu :
 
 ## Les points à retenir
 
-Les **ressources** permettent de gérer des *vues*, des images et des *constantes* (chaînes de caractères et autres) selon la *langue de l'utilisateur*.
+Les **ressources** permettent de gérer des *vues*, des images et des *constantes* (chaines de caractères et autres) selon la *langue de l'utilisateur*.
 
 Les **méthodes** associées aux **activités** permettent de coder des fonctionnalités.
 
-Il est possible d'**accèder aux éléments des vues depuis ces méthodes** pour agir dessus.
+Il est possible d'**accéder aux éléments des vues depuis ces méthodes** pour agir dessus.
