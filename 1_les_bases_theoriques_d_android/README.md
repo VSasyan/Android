@@ -4,8 +4,8 @@
 
 ### Plateforme et Architecture
 
-* Smartphone utilisation particulère
-* Java, language multiplateforme
+* Smartphone utilisation particulière
+* Java, langage multiplateforme
 * A chaque version d'Android est associée une API
  * gestion des vues
  * partage de données (Contacts, ...)
@@ -23,7 +23,7 @@
 
 ### Structure d'un projet
 
-![]( Image présentant l'anatomie)
+![Structure d'un projet](screens/2_environnement_1_structure.png "Structure d'un projet")
 
 ### Détails des fichiers
 
@@ -46,6 +46,6 @@
 #### java
 
 * Les classes java
- * Activités : controlleurs associés aux vues
+ * Activités : contrôleurs associés aux vues
  * Services : classes spécialisées permettant de gérer la données
  * ...
