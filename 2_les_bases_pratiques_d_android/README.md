@@ -45,13 +45,13 @@ Ouvrez les fichiers `manifest`, `DiceActivity`, et `activity_dice` en mode Deisg
 ### 1) Modification de la vue
 
 Dans un premier temps, il faut modifier la vue pour ajouter une zone de text.
-Modifier le TextView automatiquement ajouté par Android Studio : rennommez le en `tv_dice_results` et agrandissezz-le pour qu'il prenne tous l'espace.
+Modifier le TextView automatiquement ajouté par Android Studio : rennommez le en `tv_dice_results`, agrandissez-le pour qu'il prenne tous l'espace et vider le text qu'il contient.
 
 Vous devez obtenir le code suivant :
 
 ```xml
     <TextView
-        android:text="TextView"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_dice_results"
@@ -100,7 +100,7 @@ Il faut dans un premier temps récupérer le TextView dans la vue, ensuite, on g
 Voici la fonction onCreate à obtenir :
 
 ```java
-        @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dice);
@@ -122,11 +122,8 @@ Voici la fonction onCreate à obtenir :
             result = getResources().getString(R.string.head);
         }
 
-        // Get previous results
-        String prevResults = tv_diceResults.getText().toString();
-
-        // Add new result
-        tv_diceResults.setText(prevResults + "\n" + result);
+        // Set the result
+        tv_diceResults.setText(result);
     }
 ```
 
