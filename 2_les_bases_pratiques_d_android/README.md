@@ -129,3 +129,15 @@ Voici la fonction onCreate à obtenir :
         tv_diceResults.setText(prevResults + "\n" + result);
     }
 ```
+
+Remarquez les `import` à effectuer :
+
+```java
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import java.util.Random;
+```
+
+Vous utilisez des librairies, il faut donc les importer (Android Studio arrive très bien à vous proposer d'ajouter automatiquement les librairies les plus courantes,utilisez le `Alt+Entrer`).
