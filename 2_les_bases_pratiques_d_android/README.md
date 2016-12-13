@@ -93,3 +93,39 @@ Remarquez que le programme a en fait créé un deuxième fichier XML :
 
 Nous allons maintenant modifier l'activité. La méthode `onCreate` est exécutée à la création de l'activité. Comme cette activité est l'activité de démarrage de l'application, cette fonction sera exécutée sans intervention de l'utilisateur.
 
+Vous pouvez voir qu'il y a deux lignes dans la fonctions, elle permettent d'afficher la vue, effectuez vos modifications après.
+
+Il faut dans un premier temps récupérer le TextView dans la vue, ensuite, on génère un nombre égal à 1 ou 0, enfin, on ajout dans le TextView le label correspondant au nombre généré.
+
+Voici la fonction onCreate à obtenir :
+
+```java
+        @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dice);
+
+        // Get the TextView
+        TextView tv_diceResults = (TextView)findViewById(R.id.tv_dice_results);
+
+        // Creation of a randomGenerator
+        Random randomGenerator = new Random();
+
+        // Tail or not Tail that is the question?
+        boolean tail = randomGenerator.nextBoolean();
+
+        // Put the result in a string
+        String result;
+        if (tail) {
+            result = getResources().getString(R.string.tail);
+        } else {
+            result = getResources().getString(R.string.head);
+        }
+
+        // Get previous results
+        String prevResults = tv_diceResults.getText().toString();
+
+        // Add new result
+        tv_diceResults.setText(prevResults + "\n" + result);
+    }
+```
