@@ -9,9 +9,13 @@
 * Création de GUI
 * Webmapping sur mobiles
 
-## Les bases d'Android
+## Les bases (théoriques) d'Android
 
-[Les bases d'Android](les_bases_d_android.md)
+[Les bases (théoriques) d'Android](les_bases_theoriques_d_android.md)
+
+## Les bases (pratiques) d'Android
+
+[Les bases (pratiques) d'Android](les_bases_pratiques_d_android.md)
 
 ## Les capteurs
 
