@@ -1,4 +1,4 @@
-# Les bases d'Android
+# Les bases (théoriques) d'Android
 
 ## L'environnement
 
