@@ -115,7 +115,7 @@ Voici la fonction onCreate à obtenir :
         boolean tail = randomGenerator.nextBoolean();
 
         // Put the result in a string
-        String result;
+        String result;4)
         if (tail) {
             result = getResources().getString(R.string.tail);
         } else {
@@ -137,4 +137,114 @@ import android.widget.TextView;
 import java.util.Random;
 ```
 
-Vous utilisez des librairies, il faut donc les importer (Android Studio arrive très bien à vous proposer d'ajouter automatiquement les librairies les plus courantes,utilisez le `Alt+Entrer`).
+Vous utilisez des librairies, il faut donc les importer (Android Studio arrive très bien à vous proposer d'ajouter automatiquement les librairies les plus courantes, utilisez le `Alt+Entrer`).
+
+### 4) Lancement de l'application
+
+Connectez votre téléphone à l'ordinateur et lancez le programme dans Android Studio (Maj+F10).
+Android Studio ouvre une fenêtre, selectionnez votre mobile. L'application doit se lancer sur votre téléphone !
+
+### 5) Ajout du bouton
+
+Votre programme fonctionne ! On va maintenant ajouter un bouton pour que l'utilisateur puisse relancer une pièce !
+
+Ajouter un bouton dans la vue, en haut, nommez-le `b_coin_flip`. Au clique (onClick), on doit lancer la fonctionne `coinFlip` (à ajouter ensuite à l'activité `DiceActivity`). Personnalisez le label du bouton en utilisant une ressource...
+
+Voici le code XML obtenu :
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_dice"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="fr.ign.sasyan.dice.DiceActivity">
+
+    <Button
+        android:text="@string/coin_flip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/b_coin_flip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="coinFlip" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_dice_results"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/b_coin_flip" />
+</RelativeLayout>
+```
+
+LA ligne la plus important est le `android:onClick="coinFlip"`, qui permet d'associé le clique d'un utilisateur sur le bouton à la methode `coinFlip` de l'activité `DiceActivity`. Cela fonction **uniquement** car l'activité et la vue sont associées. Deplus, la methode doit être **publique**.
+
+### 6) Ajout de la fonction
+
+Retourner dans l'activité `DiceActivity`. Ajouter une fonction publique `coinFlip`.
+Réagencer le code pour que le programme ajoute les lancés à la suite des autres.
+
+Modifiez la methode `onCreate` pour qu'elle appelle la fonction coinFlip (au lieu de dupliquer le code).
+
+Note : signature de la fonction `coinFlip`
+
+La fonction `coinFlip` doit avoir une signature particulière pour être appelée par l'évènement `onClick` : elle ne doit rien retrouner (`void`) et prendre en paramètre une instance de la classe `View` : `void coinFlip(View view)`.
+Pour appeler cette fonction, il vous faudra donc lui passer une instance nulle en paramètre : `coinFlip(null);`.
+
+Voici le résultat attendu :
+
+```java
+public class DiceActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dice);
+        coinFlip(null);
+    }
+
+    public void coinFlip(View view) {
+        // Get the TextView
+        TextView tv_diceResults = (TextView)findViewById(R.id.tv_dice_results);
+
+        // Creation of a randomGenerator
+        Random randomGenerator = new Random();
+
+        // Tail or not Tail that is the question?
+        boolean tail = randomGenerator.nextBoolean();
+
+        // Put the result in a string
+        String result;
+        if (tail) {
+            result = getResources().getString(R.string.tail);
+        } else {
+            result = getResources().getString(R.string.head);
+        }
+
+        // Get previous results
+        String prevResults = tv_diceResults.getText().toString();
+
+        // Add new result
+        tv_diceResults.setText(prevResults + "\n" + result);
+    }
+}
+```
+
+### 7) Scroll
+
+Si l'utilisateur fait beaucoup de pile ou face, il ne pourra pas scroller pour vois les derniers.
+Il faut mettre le TextView dans un ScrollMachin.
