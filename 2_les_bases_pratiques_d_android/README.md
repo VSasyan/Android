@@ -301,3 +301,8 @@ Les **ressources** permettent de gérer des *vues*, des images et des *constante
 Les **méthodes** associées aux **activités** permettent de coder des fonctionnalités.
 
 Il est possible d'**accéder aux éléments des vues depuis ces méthodes** pour agir dessus.
+
+
+## Projet complet
+
+Vous pouvez retrouver le projet complet ici : [https://bitbucket.org/VSasyan/android_dice](https://bitbucket.org/VSasyan/android_dice)
