@@ -11,6 +11,16 @@
 
 ## Les bases d'Android
 
+### Plateforme et Architecture
+
+* Smartphone utilisation particulère
+* Java, language multiplateforme
+* A chaque version d'Android est associée une API
+  * gestion des vues
+  * partage de données (Contacts, ...)
+  * notifications
+
+### Environnement de développement
 
 
 ## Les capteurs
