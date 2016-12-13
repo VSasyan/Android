@@ -246,5 +246,48 @@ public class DiceActivity extends AppCompatActivity {
 
 ### 7) Scroll
 
-Si l'utilisateur fait beaucoup de pile ou face, il ne pourra pas scroller pour vois les derniers.
-Il faut mettre le TextView dans un ScrollMachin.
+Si l'utilisateur fait beaucoup de pile ou face, il ne pourra pas scroller pour vois les derniers. Pour cela, il faut mettre le TextView dans une ScrollView.
+
+Voici le code XML obtenu :
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_dice"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="fr.ign.sasyan.dice.DiceActivity">
+
+    <Button
+        android:text="@string/coin_flip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/b_coin_flip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="coinFlip" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/b_coin_flip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_dice_results" />
+    </ScrollView>
+    
+</RelativeLayout>
+```
