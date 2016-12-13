@@ -42,7 +42,7 @@ Ouvrez les fichiers `manifest`, `DiceActivity`, et `activity_dice` en mode Deisg
 
 ## Pas à pas des modifications
 
-1) Modification de la vue
+### 1) Modification de la vue
 
 Dans un premier temps, il faut modifier la vue pour ajouter une zone de text.
 Modifier le TextView automatiquement ajouté par Android Studio : rennommez le en `tv_dice_results` et agrandissezz-le pour qu'il prenne tous l'espace.
@@ -63,7 +63,7 @@ Vous devez obtenir le code suivant :
         android:layout_alignParentEnd="true" />
 ```
 
-2) Ajout des labels dans les fichiers strings
+### 2) Ajout des labels dans les fichiers strings
 
 Ouvrez le fichier `res/values/string.xml`. Android Studio doit automatiquement afficher un mesage vous proposant de traduire, cliquez sur « Open editor » (sinon faites un clique-droit sur le fichier `string.xml` et choisissez « Open Translations Editor »).
 
@@ -89,7 +89,7 @@ Remarquez que le programme a en fait créé un deuxième fichier XML :
 
 ![Fichiers](screens/3_res_4_fichiers.png)
 
-3) Modification de l'activité
+### 3) Modification de l'activité
 
 Nous allons maintenant modifier l'activité. La méthode `onCreate` est exécutée à la création de l'activité. Comme cette activité est l'activité de démarrage de l'application, cette fonction sera exécutée sans intervention de l'utilisateur.
 
