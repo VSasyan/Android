@@ -34,9 +34,9 @@ Regardez la structure du projet créé par Android Studio :
 
 Ouvrez les fichiers `manifest`, `DiceActivity`, et `activity_dice` en mode Design et Text :
 
-![Structure du projet](screens/2_environnement_1_manifest.png)
+![Structure du projet](screens/2_environnement_2_manifest.png)
 
-![Structure du projet](screens/2_environnement_2_DiceActivity.png)
+![Structure du projet](screens/2_environnement_3_DiceActivity.png)
 
 ![Structure du projet](screens/2_environnement_4_activity_dice_design.png)
 
