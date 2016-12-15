@@ -40,7 +40,7 @@ Ouvrez les fichiers `manifest`, `DiceActivity`, et `activity_dice` en mode Desig
 
 ![Structure du projet](screens/2_environnement_4_activity_dice_design.png)
 
-![Structure du projet](screens/2_environnement_2_manifest.png)
+![Structure du projet](screens/2_environnement_5_activity_dice_text.png)
 
 
 ## Pas à pas des modifications
@@ -118,7 +118,7 @@ Voici la fonction onCreate à obtenir :
         boolean tail = randomGenerator.nextBoolean();
 
         // Put the result in a string
-        String result;4)
+        String result;
         if (tail) {
             result = getResources().getString(R.string.tail);
         } else {
@@ -300,7 +300,9 @@ Les **ressources** permettent de gérer des *vues*, des images et des *constante
 
 Les **méthodes** associées aux **activités** permettent de coder des fonctionnalités.
 
-Il est possible d'**accéder aux éléments des vues depuis ces méthodes** pour agir dessus.
+Il est possible d'**accéder aux éléments des vues depuis ces méthodes** pour agir dessus et transmettre des informations aux utilisateurs.
+
+Beaucoup de **composants graphiques** existent déjà pour vous aider à développer des interfaces riches sans efforts.
 
 
 ## Projet complet
