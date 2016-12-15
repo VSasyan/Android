@@ -10,6 +10,7 @@
  * gestion des vues
  * partage de données (Contacts, ...)
  * notifications
+ * gestion des capteurs
 
 ### Environnement de développement
 
