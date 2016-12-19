@@ -48,7 +48,7 @@ Ouvrez les fichiers `manifest`, `DiceActivity`, et `activity_dice` en mode Desig
 ### 1) Modification de la vue
 
 Dans un premier temps, il faut modifier la vue pour ajouter une zone de texte.
-Modifier le TextView automatiquement ajouté par Android Studio : renommez le en `tv_dice_results`, agrandissez-le pour qu'il prenne tous l'espace et vider le texte qu'il contient.
+Modifier le TextView automatiquement ajouté par Android Studio : renommez le en `tv_dice_results`, agrandissez-le pour qu'il prenne tout l'espace et videz le texte qu'il contient.
 
 Vous devez obtenir le code suivant :
 
