@@ -68,7 +68,7 @@ Exemples :
 
 ```java
     String.format("Mon prénom est %s.", "Valentin"); // Mon prénom est Valentin
-    String.format("La réponse est %s.", 42); // La réponse est 42
+    String.format("La réponse est %d.", 42); // La réponse est 42
     String.format("Pi vaut %2.4f.", Math.PI); // Pi vaut 3.1415
     String.format("Pi vaut %3.2f.", Math.PI); // Pi vaut 003.14
 ```
@@ -84,9 +84,9 @@ Il faut dans un premier temps récupérer le bouton et l'instancier en Java :
     Button b_button = (Button)findViewById(R.id.b_button);
 ```
 
-Ensuite, il faut ajouter une fonction :
+Ensuite, il faut lui ajouter un écouteur d'évènement :
 
-* ou une fonction définie ailleurs :
+* il peut être défini en tant qu'attribut de la classe Activity :
 
 ```java
 public class ImcActivity extends AppCompatActivity {
@@ -118,7 +118,7 @@ public class ImcActivity extends AppCompatActivity {
 
 ```
 
-* ou une fonction définie à la volée (on parle de fonction anonyme) :
+* ou il peut être défini à la volée (on parle d'écouteur d'évènement anonyme) :
 
 ```java
 public class ImcActivity extends AppCompatActivity {
@@ -146,7 +146,7 @@ public class ImcActivity extends AppCompatActivity {
 }
 ```
 
-On parle en général d'event listener car cela dépend du type d'événement. Sur un bouton, on va souhaiter détecter un clique (`OnClickListener`), dans un champ de texte (`EditText`) on va plutôt souhaiter suivre l'évolution du texte (grâce à l'objet `TextWatcher` et ses méthodes `onTextChanged`, `beforeTextChanged` ou `afterTextChanged`).
+On parle en général d'*event* listener car cela dépend du type d'événement. Sur un bouton, on va souhaiter détecter un clique (`OnClickListener`), dans un champ de texte (`EditText`) on va plutôt souhaiter suivre l'évolution du texte (grâce à l'objet `TextWatcher` et ses méthodes `onTextChanged`, `beforeTextChanged` ou `afterTextChanged` par exemple).
 
 ### Comment démarrer ?
 
