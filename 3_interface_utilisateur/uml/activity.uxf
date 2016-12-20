@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>70</x>
+      <y>50</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Activity</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>110</x>
+      <y>70</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>20</x>
+      <y>150</y>
+      <w>210</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>*ImcActivity*
+--
+*Attributes*
+-et_weight: EditText
+-et_size: EditText
+-rg_unit: RadioGroup
+-rb_centimeter: RadioButton
+-rb_meter: RadioButton
+-cb_nice: CheckBox
+-b_calculate: Button
+-b_reset: Button
+-tv_result: TextView
+--
+*Listeners*
+-reset: View.OnClickListener
+-calculate: View.OnClickListener
+--
+*Methods*
+-loadComponents(): void
+-addEventListeners(): void
+--
+*Constructors*
+onCreate(Bundle): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
