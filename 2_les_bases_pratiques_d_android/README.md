@@ -146,6 +146,7 @@ quel élément d'une vue et d'en faire un objet Java. Cela permet de pouvoir agi
 La fonction renvoie un objet `View`. Or tous les éléments que l'on peut afficher héritent de l'objet `View`.
 On doit donc *caster* l'objet (en ajoutant le `(TextView)`), ce qui revient à préciser à Java que l'objet est un `TextView` et non autre chose (`EditText`, `Button`, ...).
 
+Extrait du diagramme UML des composants graphiques :
 
 ![Extrait du diagramme UML des composants graphiques](uml/views.png "Extrait du diagramme UML des composants graphiques")
 
