@@ -11,7 +11,7 @@ L'application sera composée d'une vue permettant d'afficher du texte (TextView)
 Il y aura, stockés dans les ressources, deux labels correspondant aux résultats
 en français et anglais ("Pile" ou "Face" et "Tail" ou "Head").
 
-Au démarrage de l'application, le programme génère un nombre égale à 0 ou 1, et
+Au démarrage de l'application, le programme génère un booléen aléatoirement égal à `true` ou `false`, et
 affiche le label correspondant. L'utilisateur peut effectuer un nouveau lancé en cliquant sur un bouton.
 
 Grâce à la bonne utilisation des fichiers de ressources, l'application est
@@ -130,6 +130,26 @@ Voici la fonction onCreate à obtenir :
     }
 ```
 
+#### La ligne la plus importante
+
+La ligne la plus importante est :
+
+```java
+        // Get the TextView
+        TextView tv_diceResults = (TextView)findViewById(R.id.tv_dice_results);
+```
+
+Cette ligne permet d'instancier en Java l'objet TestView correspondant au code XML écrit à l'étape **1)**.
+La fonction `findViewById` de signature `View findViewById(String id)` est fournie par l'API d'Android. Elle permet de récupérer n'importe
+quel élément d'une vue et d'en faire un objet Java. Cela permet de pouvoir agir sur l'objet via une fonction Java.
+
+La fonction renvoie un objet `View`. Or tous les éléments que l'on peut afficher hérite de l'objet `View`.
+On doit donc *caster* l'objet, ce qui revient à préciser à Java que l'objet est un `TextView` et non autre chose.
+
+On caste en ajoutant le `(TextView)`.
+
+#### Remarque sur les imports :
+
 Remarquez les `import` à effectuer :
 
 ```java
@@ -194,7 +214,12 @@ Voici le code XML obtenu :
 </RelativeLayout>
 ```
 
-La **ligne la plus important** est le `android:onClick="coinFlip"`, qui permet d'associer le clique d'un utilisateur sur le bouton à la méthode `coinFlip` de l'activité `DiceActivity`. Cela fonctionne **uniquement** car l'activité et la vue sont associées. De plus, la méthode doit être **publique**.
+Nous voulons que Java générer un événement lorsque l'utilisateur clique sur le bouton.
+Pour cela, nous devons utiliser un *listener*. Il y a plusieurs manières pour ajouter un listener, ici nous l'avons fait directement dans le code XML.
+
+La **ligne la plus important** est le `android:onClick="coinFlip"`, qui permet d'associer le clique d'un utilisateur sur le bouton à la méthode `coinFlip` de l'activité `DiceActivity`. Cela fonctionne **uniquement** car l'activité et la vue sont associées. De plus, la méthode doit être **publique** est avoir une signature particulière pour être appelée par l’événement `onClick` : elle ne doit rien retourner (`void`) et prendre en paramètre une instance de la classe `View` : `void coinFlip(View view)`.
+
+Le *listener* demande au programme d'écouter les actions de l'utilisateur et d'exécuter la fonction associée à chaque action. On parle de **programmation événementielle**.
 
 ### 6) Ajout de la fonction
 
@@ -204,7 +229,7 @@ Réagencer le code pour que le programme ajoute les lancés à la suite des autr
 Modifiez la méthode `onCreate` pour qu'elle appelle la fonction coinFlip (au lieu de dupliquer le code).
 
 Note : signature de la fonction `coinFlip`  
-La fonction `coinFlip` doit avoir une signature particulière pour être appelée par l'évènement `onClick` : elle ne doit rien retourner (`void`) et prendre en paramètre une instance de la classe `View` : `void coinFlip(View view)`.
+
 Pour appeler cette fonction, il vous faudra donc lui passer une instance nulle en paramètre : `coinFlip(null);`.
 
 Voici le résultat attendu :
@@ -296,7 +321,7 @@ Voici le code XML obtenu :
 
 ## Les points à retenir
 
-Les **ressources** permettent de gérer des *vues*, des images et des *constantes* (chaines de caractères et autres) selon la *langue de l'utilisateur*.
+Les **ressources** permettent de gérer des *vues*, des images et des *constantes* (chaînes de caractères et autres) selon la *langue de l'utilisateur*.
 
 Les **méthodes** associées aux **activités** permettent de coder des fonctionnalités.
 
@@ -304,6 +329,9 @@ Il est possible d'**accéder aux éléments des vues depuis ces méthodes** pour
 
 Beaucoup de **composants graphiques** existent déjà pour vous aider à développer des interfaces riches sans efforts.
 
+Pour **agir sur les composants graphiques** il faut :
+* **instancier des objets Java représentant ces composants** (via `findViewById`) ;
+* ajouter des **écouteurs d'événements** (event listerner) (une des manières de le faire est de l'inscrire directement dans le code XML).
 
 ## Projet complet
 
