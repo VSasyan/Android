@@ -20,12 +20,6 @@ Pour obtenir cela, il vous faudra utiliser les composants suivants :
 
 L'application doit calculer l'IMC de l'utilisateur lorsque le formulaire est correctement rempli en prenant en compte l'unité utilisée par l'utilisateur.
 
-Pour rappel :
-
-![IMC = P / T²](http://www.sciweavers.org/tex2img.php?eq=IMC%3D%5Cfrac%7BP%7D%7BT%5E2%7D&bc=Transparent&fc=Black&im=png&fs=12&ff=arev&edit=0 "IMC = P / T²")
-
-où T est la taille en *mètre* et P le poids en *kilogramme*.
-
 Si la case « Tri tri gentil » est cochée, la phrase de résultat affichée doit être méliorative pour l'utilisateur.
 
 Un clique sur le bouton reset permet de réinitialiser le formulaire (et la phrase de résultat).
@@ -35,7 +29,13 @@ Phrases de résultat :
 * par défaut : "Votre IMC est de %.2f." ;
 * méliorative : "Votre IMC est de %.2f, c'est vraiment génial.".
 
-Stockez ces phrases dans les ressources.
+**Stockez ces phrases dans les ressources.**
+
+Pour rappel :
+
+![IMC = P / T²](equations/imc.png "IMC = P / T²")
+
+où T est la taille en *mètre* et P le poids en *kilogramme*.
 
 ## Guide
 
