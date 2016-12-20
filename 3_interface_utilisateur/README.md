@@ -55,7 +55,7 @@ Plutôt que :
     String result = "Votre IMC est de " + 1.42 + ".";
 ```
 
-Le principal intérêt est que peu importe la langue, la structure sera la même (donc la chaîne à formater peut venir du fichiers de ressources...).
+Le principal intérêt est que peu importe la langue, la structure sera la même (donc la chaîne à formater peut venir du fichier de ressources...).
 
 Voici une liste non exhaustive des codes à utiliser :
 * pour un string : `%s`
@@ -144,7 +144,7 @@ public class ImcActivity extends AppCompatActivity {
 }
 ```
 
-On parle en général d'event listener car cela dépend tu type d'événement. Sur un bouton, on va souhaiter détecter un clique (OnClickListener), dans un champs de texte (EditText) on va plutôt souhaiter suivre l'évolution du texte (grâce à l'objet `TextWatcher` et ses méthodes `onTextChanged`, `beforeTextChanged` ou `afterTextChanged`).
+On parle en général d'event listener car cela dépend tu type d'événement. Sur un bouton, on va souhaiter détecter un clique (OnClickListener), dans un champ de texte (EditText) on va plutôt souhaiter suivre l'évolution du texte (grâce à l'objet `TextWatcher` et ses méthodes `onTextChanged`, `beforeTextChanged` ou `afterTextChanged`).
 
 ### Comment démarrer ?
 
@@ -154,10 +154,14 @@ On a vu grâce à l'exercice précédent qu'il vous faudra :
 * (Java Activity) créer les événements à lier aux composants ;
 * (Java Activity) ajouter les écouteurs d'événement pour que l'utilisateur puisse utiliser l'application.
 
-Je vous conseil donc de créer deux fonctions privées `loadComponents` et `addEventListeners` permettant d'effectuer ses deux tâches.
+Je vous conseille donc de créer deux fonctions privées `loadComponents` et `addEventListeners` permettant d'effectuer ses deux tâches.
 
 Créez aussi deux `View.OnClickListener` associés à votre classe `ImcActivity`, ce sont les événements qui seront associés aux boutons dans la fonction `addEventListener`. L'un s'appellera `reset` et l'autre `calculate`.
 
 Voici le schéma UML de votre classe `ImcActivity` :
 
 ![Schéma UML de la classe ImcActivity](uml/activity.png "Schéma UML de la classe ImcActivity")
+
+## Projet complet
+
+Vous pouvez retrouver le projet complet ici : [https://bitbucket.org/VSasyan/android_dice](https://bitbucket.org/VSasyan/android_imc)
