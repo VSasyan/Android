@@ -1,6 +1,6 @@
 # Une interface utilisateur avancée
 
-Nous allons maintenant créer une nouvelle application ayant pour but de calculer l'IMC.
+Nous allons créer une nouvelle application permettant de calculer l'IMC de l'utilisateur. Le but est de manipuler plus de composants graphiques pour se familiariser avec l'instanciation d'objets en Java.
 
 ## GUI
 
@@ -22,11 +22,9 @@ L'application doit calculer l'IMC de l'utilisateur lorsque le formulaire est cor
 
 Pour rappel :
 
-```
-    IMC = P / T²
-    
-    où T est la taille en *mètre* et P le poids en *kilogramme*.
-```
+![IMC = P / T²](http://www.sciweavers.org/tex2img.php?eq=IMC%3D%5Cfrac%7BP%7D%7BT%5E2%7D&bc=Transparent&fc=Black&im=png&fs=12&ff=arev&edit=0 "IMC = P / T²")
+
+où T est la taille en *mètre* et P le poids en *kilogramme*.
 
 Si la case « Tri tri gentil » est cochée, la phrase de résultat affichée doit être méliorative pour l'utilisateur.
 
@@ -84,7 +82,7 @@ Il faut dans un premier temps récupérer le bouton et l'instancier en Java :
 
 Ensuite, il faut ajouter une fonction :
 
-Ou une fonction définie ailleurs :
+* ou une fonction définie ailleurs :
 
 ```java
 public class ImcActivity extends AppCompatActivity {
@@ -116,7 +114,7 @@ public class ImcActivity extends AppCompatActivity {
 
 ```
 
-Ou une fonction définie à la volée (on parle de fonction anonyme) :
+* ou une fonction définie à la volée (on parle de fonction anonyme) :
 
 ```java
 public class ImcActivity extends AppCompatActivity {
@@ -144,7 +142,7 @@ public class ImcActivity extends AppCompatActivity {
 }
 ```
 
-On parle en général d'event listener car cela dépend tu type d'événement. Sur un bouton, on va souhaiter détecter un clique (OnClickListener), dans un champ de texte (EditText) on va plutôt souhaiter suivre l'évolution du texte (grâce à l'objet `TextWatcher` et ses méthodes `onTextChanged`, `beforeTextChanged` ou `afterTextChanged`).
+On parle en général d'event listener car cela dépend du type d'événement. Sur un bouton, on va souhaiter détecter un clique (`OnClickListener`), dans un champ de texte (`EditText`) on va plutôt souhaiter suivre l'évolution du texte (grâce à l'objet `TextWatcher` et ses méthodes `onTextChanged`, `beforeTextChanged` ou `afterTextChanged`).
 
 ### Comment démarrer ?
 
