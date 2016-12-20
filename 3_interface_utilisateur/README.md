@@ -26,14 +26,14 @@ Un clique sur le bouton reset permet de réinitialiser le formulaire (et la phra
 
 Phrases de résultat :
 * à la base : "Renseignez le formulaire et cliquez sur « Calculer l'IMC » pour obtenir un résultat." ;
-* par défaut : "Votre IMC est de %.2f, %s." ;
-* sympa : "Votre IMC est de %.2f, c'est vraiment génial...".
+* par défaut : "Votre IMC est de %.2f : %s" ;
+* sympa : "Votre IMC est de %.2f : c'est vraiment génial...".
 
 Commentaires :
 * si 17 < imc < 30 : "c'est vraiment génial !" ;
 * sinon : "c'est gênant...".
 
-**Stockez ces phrases dans les ressources.**
+**Stockez ces phrases dans les ressources** (pensez à échapper les caractères spéciaux : `'` => `\'`.
 
 Pour rappel :
 
