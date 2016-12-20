@@ -25,7 +25,7 @@ Pour rappel :
 ```
     IMC = P / T²
     
-    où T est la taille en centimètre et P le poids en kilogrammes.
+    où T est la taille en *mètre* et P le poids en *kilogramme*.
 ```
 
 Si la case « Tri tri gentil » est cochée, la phrase de résultat affichée doit être méliorative pour l'utilisateur.
