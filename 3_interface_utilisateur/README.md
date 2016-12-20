@@ -20,14 +20,18 @@ Pour obtenir cela, il vous faudra utiliser les composants suivants :
 
 L'application doit calculer l'IMC de l'utilisateur lorsque le formulaire est correctement rempli en prenant en compte l'unité utilisée par l'utilisateur.
 
-Si la case « Tri tri gentil » est cochée, la phrase de résultat affichée doit être méliorative pour l'utilisateur.
+Si la case « Soyez sympa » est cochée, la phrase de résultat affichée doit mentir à l'utilisateur.
 
 Un clique sur le bouton reset permet de réinitialiser le formulaire (et la phrase de résultat).
 
 Phrases de résultat :
 * à la base : "Renseignez le formulaire et cliquez sur « Calculer l'IMC » pour obtenir un résultat." ;
-* par défaut : "Votre IMC est de %.2f." ;
-* méliorative : "Votre IMC est de %.2f, c'est vraiment génial.".
+* par défaut : "Votre IMC est de %.2f, %s." ;
+* sympa : "Votre IMC est de %.2f, c'est vraiment génial...".
+
+Commentaires :
+* si 17 < imc < 30 : "c'est vraiment génial !" ;
+* sinon : "c'est gênant...".
 
 **Stockez ces phrases dans les ressources.**
 
@@ -55,7 +59,7 @@ Plutôt que :
 
 Le principal intérêt est que peu importe la langue, la structure sera la même (donc la chaîne à formater peut venir du fichier de ressources...).
 
-Voici une liste non exhaustive des codes à utiliser :
+Voici une liste non exhaustive des codes pouvant être utilisés :
 * pour un string : `%s`
 * pour un integer : `%d`
 * pour un float/double : `%2.4f` (le "2" donne le nombre minimum de chiffres avant la virgule et "4" le nombre de chiffres après)
