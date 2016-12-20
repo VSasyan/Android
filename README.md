@@ -17,6 +17,10 @@
 
 [Les bases (pratiques) d'Android](2_les_bases_pratiques_d_android/README.md)
 
+## Une interface utilisateur avancée
+
+[Une interface utilisateur avancée](3_interface_utilisateur/README.md)
+
 ## Les capteurs
 
 ## Utilisation de SQLite

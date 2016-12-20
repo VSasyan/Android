@@ -1,4 +1,4 @@
-# Une interface utilisateur plus avancée
+# Une interface utilisateur avancée
 
 Nous allons maintenant créer une nouvelle application ayant pour but de calculer l'IMC.
 
