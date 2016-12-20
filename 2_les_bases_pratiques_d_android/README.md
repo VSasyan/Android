@@ -215,11 +215,11 @@ Voici le code XML obtenu :
 ```
 
 Nous voulons que Java générer un événement lorsque l'utilisateur clique sur le bouton.
-Pour cela, nous devons utiliser un *listener*. Il y a plusieurs manières pour ajouter un listener, ici nous l'avons fait directement dans le code XML.
+Pour cela, nous devons utiliser un *event listener* (écouteur d'événement). Il y a plusieurs manières pour ajouter un event listener, ici nous l'avons fait directement dans le code XML.
 
 La **ligne la plus important** est le `android:onClick="coinFlip"`, qui permet d'associer le clique d'un utilisateur sur le bouton à la méthode `coinFlip` de l'activité `DiceActivity`. Cela fonctionne **uniquement** car l'activité et la vue sont associées. De plus, la méthode doit être **publique** est avoir une signature particulière pour être appelée par l’événement `onClick` : elle ne doit rien retourner (`void`) et prendre en paramètre une instance de la classe `View` : `void coinFlip(View view)`.
 
-Le *listener* demande au programme d'écouter les actions de l'utilisateur et d'exécuter la fonction associée à chaque action. On parle de **programmation événementielle**.
+L'*event listener* demande au programme d'écouter les actions de l'utilisateur et d'exécuter la fonction associée à chaque action. On parle de **programmation événementielle**.
 
 ### 6) Ajout de la fonction
 
