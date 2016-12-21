@@ -228,14 +228,10 @@ L'*event listener* demande au programme d'écouter les actions de l'utilisateur 
 
 ### 6) Ajout de la fonction
 
-Retourner dans l'activité `DiceActivity`. Ajouter une fonction publique `coinFlip`.
-Réagencer le code pour que le programme ajoute les lancés à la suite des autres.
+Retournez dans l'activité `DiceActivity`. Ajoutez une fonction publique `coinFlip`.
+Réagencez le code pour que le programme ajoute le résultat des lancés à la suite des autres.
 
-Modifiez la méthode `onCreate` pour qu'elle appelle la fonction coinFlip (au lieu de dupliquer le code).
-
-Note : signature de la fonction `coinFlip`  
-
-Pour appeler cette fonction, il vous faudra donc lui passer une instance nulle en paramètre : `coinFlip(null);`.
+Modifiez la méthode `onCreate` pour qu'elle appelle la fonction `coinFlip` (au lieu de dupliquer le code). Pour appeler cette fonction, il vous faudra donc lui passer une instance nulle en paramètre (`coinFlip(null);`) qui représente l'objet `View` demandé en paramètre.
 
 Voici le résultat attendu :
 
@@ -279,6 +275,8 @@ public class DiceActivity extends AppCompatActivity {
 ### 7) Scroll
 
 Si l'utilisateur fait beaucoup de « pile ou face », il ne pourra pas scroller pour voir les derniers. Pour cela, il faut mettre le TextView dans une ScrollView.
+
+Vous pouvez modifier la vue pour que le TextView soit contenu dans une ScrollView.
 
 Voici le code XML obtenu :
 
@@ -336,7 +334,7 @@ Beaucoup de **composants graphiques** existent déjà pour vous aider à dévelo
 
 Pour **agir sur les composants graphiques** il faut :
 * **instancier des objets Java représentant ces composants** (via `findViewById`) ;
-* ajouter des **écouteurs d'événements** (event listerner) (une des manières de le faire est de l'inscrire directement dans le code XML).
+* ajouter des **écouteurs d'événements** (event listerners) (une des manières de le faire est de l'inscrire directement dans le code XML).
 
 ## Projet complet
 
