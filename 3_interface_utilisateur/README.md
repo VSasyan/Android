@@ -170,4 +170,4 @@ Voici le schéma UML de votre classe `ImcActivity` :
 
 ## Projet complet
 
-Vous pouvez retrouver le projet complet ici : [https://bitbucket.org/VSasyan/android_dice](https://bitbucket.org/VSasyan/android_imc)
+Vous pouvez retrouver le projet complet ici : [https://bitbucket.org/VSasyan/android_imc](https://bitbucket.org/VSasyan/android_imc)
