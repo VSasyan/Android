@@ -146,19 +146,23 @@ public class ImcActivity extends AppCompatActivity {
 }
 ```
 
-On parle en général d'*event* listener car cela dépend du type d'événement. Sur un bouton, on va souhaiter détecter un clique (`OnClickListener`), dans un champ de texte (`EditText`) on va plutôt souhaiter suivre l'évolution du texte (grâce à l'objet `TextWatcher` et ses méthodes `onTextChanged`, `beforeTextChanged` ou `afterTextChanged` par exemple).
+On parle en général d'*event* listener car cela dépend du type d'événement. Sur un bouton, on va souhaiter détecter un clique (grâce à l'objet `OnClickListener` et sa méthode `OnClick`), dans un champ de texte (`EditText`) on va plutôt souhaiter suivre l'évolution du texte (grâce à l'objet `TextWatcher` et ses méthodes `onTextChanged`, `beforeTextChanged` ou `afterTextChanged` par exemple).
+
+Notez bien que l'écouteur d'évènement est un **objet** et non une **simple méthode** (comme en Javascript par exemple). Le code à exécuter est donc contenu dans une de ses méthodes (par exemple la méthode `OnClick` dans le cas d'un `OnClickListener`).
 
 ### Comment démarrer ?
 
 On a vu grâce à l'exercice précédent qu'il vous faudra :
-* (XML) créer la vue en fichier XML :
+* (XML) créer la vue en fichier XML ;
+* (Java Activity) créer les écouteurs d'événement à lier aux composants ;
 * (Java Activity) récupérer les composants et les instancier en objets Java ;
-* (Java Activity) créer les événements à lier aux composants ;
-* (Java Activity) ajouter les écouteurs d'événement pour que l'utilisateur puisse utiliser l'application.
+* (Java Activity) lier les écouteurs d'événement aux boutons pour que l'utilisateur puisse utiliser l'application.
 
-Je vous conseille donc de créer deux fonctions privées `loadComponents` et `addEventListeners` permettant d'effectuer ses deux tâches.
+Pour le premier point, ça doit être une tâche facile.
 
-Créez aussi deux `View.OnClickListener` associés à votre classe `ImcActivity`, ce sont les événements qui seront associés aux boutons dans la fonction `addEventListener`. L'un s'appellera `reset` et l'autre `calculate`.
+Pour le 2ème point, créez deux `View.OnClickListener` en attribut de votre classe `ImcActivity`, ce sont les écouteurs d'événements qui seront associés aux boutons dans la fonction `addEventListener`. L'un s'appellera `reset` et l'autre `calculate`. Il vous reste à implementer chaque méthode `OnClick` pour remettre à zéro l'application ou pour calculerl'IMC et afficher les bons résultats.
+
+Pour les deux derniers points, je vous conseille de créer deux fonctions privées `loadComponents` et `addEventListeners` regroupant le code à effectuer pour ces deux tâches, il suffira de les appeler dans la fonction `OnCreate`.
 
 Voici le schéma UML de votre classe `ImcActivity` :
 
