@@ -50,6 +50,8 @@ Ouvrez les fichiers `manifest`, `DiceActivity`, et `activity_dice` en mode Desig
 Dans un premier temps, il faut modifier la vue pour ajouter une zone de texte.
 Modifier le TextView automatiquement ajouté par Android Studio : renommez le en `tv_dice_results`, agrandissez-le pour qu'il prenne tout l'espace et videz le texte qu'il contient.
 
+Vous pouvez effectuer cela en utilisant le mode *Design* qui permet d'éditer facilement les composants graphiques et de modifier les propriétés via le menu de droite. Cependant cette interface est limitée, et il est parfois plus rapide d'utiliser le mode *Text*.
+
 Vous devez obtenir le code suivant :
 
 ```xml
@@ -174,7 +176,7 @@ Android Studio ouvre une fenêtre : sélectionnez votre mobile. L'application do
 
 Votre programme fonctionne ! On va maintenant ajouter un bouton pour que l'utilisateur puisse relancer une pièce !
 
-Ajouter un bouton dans la vue, en haut, nommez-le `b_coin_flip`. Au clique (attribut `onClick`), on doit lancer la fonctionne `coinFlip` (à ajouter ensuite à l'activité `DiceActivity`). Personnalisez le label du bouton en utilisant une ressource...
+Ajouter un bouton dans la vue, en haut, nommez-le `b_coin_flip`. Au clique (attribut `onClick`), on doit lancer la méthode `coinFlip` (à ajouter ensuite à l'activité `DiceActivity`). Personnalisez le label du bouton en utilisant une ressource...
 
 Voici le code XML obtenu :
 
