@@ -19,7 +19,11 @@
 
 ## Une interface utilisateur avancée
 
-[Une interface utilisateur avancée](3_interface_utilisateur/README.md)
+[Une gestion avancée des évènements](3_gestion_evenements/README.md)
+
+## Géolocalisation et Appareil photos
+
+[Une interface utilisateur avancée](4_geoloc_camera/README.md)
 
 ## Les capteurs
 
