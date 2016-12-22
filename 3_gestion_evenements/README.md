@@ -1,4 +1,4 @@
-# Une interface utilisateur avancée
+# Une gestion avancée des événements
 
 Nous allons créer une nouvelle application permettant de calculer l'IMC de l'utilisateur. Le but est de manipuler plus de composants graphiques pour se familiariser avec l'instanciation d'objets en Java.
 
