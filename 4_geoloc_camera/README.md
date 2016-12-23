@@ -129,7 +129,91 @@ Arguments :
 
 ### Afficher la position sur une carte
 
-On va modifier l'activité pour qu'elle puisse afficher une carte. Ainsi on pourra pointer la position de l'utilisateur sur une carte, c'est plus visuel !
+On va modifier l'activité pour qu'elle puisse afficher une carte. Ainsi on pourra pointer la position de l'utilisateur sur une carte !
+
+#### Modification de la vue
+
+Pour afficher la carte, il faut ajouter une balise `fragment` dans le fichier XML. Voici le code :
+
+```xml
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="fr.ign.vsasyan.geopicture.MapsActivity" />
+```
+
+Comme cet objet à l'attribut `android:layout_height="match_parent"` il va prendre tout l'espace. Pour structurer votre vue, vous devez ajouter une balise `LinearLayout` avec au moins un attribut `android:orientation="vertical"`. Allez regarder la documentation pour plus de détails... Vous devez ensuite déplacer les balises `TextView` et `fragment` dans cette balise.
+
+Voilà le résultat attendu :
+
+![Interface attendu après l'ajout de la carte](screens/gui_ajout_carte.png "Interface attendu après l'ajout de la carte")
+
+#### Modification structurelle de l'activité
+
+Pour cela, il faut modifier notre activité pour qu'elle hérite de l'objet `FragmentActivity`, elle doit aussi implémenter l'interface `OnMapReadyCallback` :
+
+```java
+public class GeoActivity extends FragmentActivity implements OnMapReadyCallback {
+
+    GoogleMap mMap;
+    Marker mMarker;
+    boolean isMapReady = false;
+
+    // ...
+}
+```
+
+On en profite pour ajouter trois attributs qui vont nous permettre de :
+* stocker l'objet qui représente notre carte ;
+* stocker l'objet qui représente le marqueur donnant la position de l'utilisateur ;
+* dire si la carte est prête ou non.
+
+Cela va nous obliger à ajouter la méthode `OnMapReadyCallback`. Cette méthode est un "callback". Elle va en fait être automatiquement exécutée lorsque que la carte sera chargée.
+
+On va ajouter dans la méthode `onCreate` de l’activité les lignes suivantes :
+
+```java
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+```
+
+On récupère le fragment de carte que l'on a ajouté dans la vue et on l'instancie en objet Java. C'est ce composant qui va afficher la carte.
+La deuxième ligne permet d'initier l'affichage en précisant qu'elle méthode de callback il faut exécuter la carte est rattachée (`this`).
+
+
+Il faut ensuite implémenter la fonction `OnMapReadyCallback` :
+
+```java
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        isMapReady = true;
+    }
+```
+
+On stocke l'objet qui représente la carte et on passe le booléen `isMapReady` à `true`.
+
+#### Modification fonctionnelle de l'activité
+
+Dans la fonction `` qui met à jour la position de l'utilisateur, nous allons ajouter un code qui actualise la position du marqueur :
+
+```java
+            if (isMapReady) {
+                // Add a marker and move the camera
+                LatLng position = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+                if (mMarker == null) {
+                    mMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(0,0)));
+                }
+                mMarker.setPosition(position);
+                mMarker.setTitle(sdf.format(lastTime));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 14));
+            }
+```
 
 // TODO
 
