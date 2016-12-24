@@ -1,9 +1,10 @@
 # Géolocalisation et Appareil photos
 
 Dans de nombreuse applications, connaître la position de l'utilisateur est déterminant.
-Cela est directement géré par l'API Android, et il est donc très simple d'accéder à ces données via une application.
+Cela est directement géré par l'API Android et il est donc très simple d'accéder à ces données via une application.
 
-Il peut être intéressant de coupler cette fonction à la prise de photo (afin de profiter de photos géo-référencées).
+Il peut être intéressant de coupler cette fonction à la prise de photo (afin de créer des photos géo-référencées).
+
 
 ## Géolocalisation
 
@@ -13,9 +14,9 @@ Nous allons créer une application simple affichant les coordonnées de l'utilis
 
 ### Autorisation
 
-Pour cela, il faut dans un premier temps que l'application est le droit d'utiliser la position de l'utilisateur. Cela se passe dans le fichier `AndroidManifest.xml`.
+Pour cela, il faut dans un premier temps que l'application ait le droit d'**utiliser la position de l'utilisateur**. Cela se passe dans le fichier `AndroidManifest.xml`.
 
-Il y a deux type de permission de localisation à demander :
+Il y a deux types de **permission** de localisation existant :
 * `ACCESS_COARSE_LOCATION` : pour une localisation approximative (via le WiFi et les antennes téléphoniques) ;
 * `ACCESS_FINE_LOCATION` : pour une localisation précise (via GNSS) ;
 
@@ -29,11 +30,13 @@ Ajouter donc les lignes suivante dans la balise `manifest` du fichier XML :
     <uses-feature android:name="android.hardware.location.gps" android:required="true" />
 ```
 
+On ne demande que la plus précise. Il y a deux lignes car l'a syntaxe de demande de permission change à partir de la version 21 de l'API d'Android.
+
 ### Création du gestionaire de position
 
 Dans un deuxième temps, il faut instancier un objet qui va gérer le suivi de position : le `LocationManager`.
 
-Dans la fonction `OnCreate` de l'acivité, ajoutez la ligne :
+Dans la fonction `OnCreate` de l'activité, ajoutez la ligne :
 
 ```java
 		LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -41,7 +44,7 @@ Dans la fonction `OnCreate` de l'acivité, ajoutez la ligne :
 
 ### Fournisseur de position
 
-Comme l'a suggéré le paragraphe sur les autorisation, la localisation du téléphone peut venir de différentes sources. Et elles n'ont pas forcément la même qualité.
+Comme l'a suggéré le paragraphe sur les permissions, la localisation du téléphone peut venir de différentes sources. Et elles n'ont pas forcément la même qualité !
 
 L'API d'Android permet de sélectionner automatiquement les bonnes sources en utilisant des critères.
 
@@ -127,11 +130,15 @@ Arguments :
 * le message à afficher ;
 * le temps d'affichage.
 
-### Afficher la position sur une carte
+### La première version est terminée
+
+Lancez l'application. Vérifiez que vous obtenez bien la position, qu'elle est actualisée de temps en temps et qu'un Toast s'affiche à ce moment.
+
+## Affichage de la position sur une carte
 
 On va modifier l'activité pour qu'elle puisse afficher une carte. Ainsi on pourra pointer la position de l'utilisateur sur une carte !
 
-#### Modification de la vue
+### Modification de la vue
 
 Pour afficher la carte, il faut ajouter une balise `fragment` dans le fichier XML. Voici le code :
 
@@ -146,13 +153,13 @@ Pour afficher la carte, il faut ajouter une balise `fragment` dans le fichier XM
             tools:context="fr.ign.vsasyan.geopicture.MapsActivity" />
 ```
 
-Comme cet objet à l'attribut `android:layout_height="match_parent"` il va prendre tout l'espace. Pour structurer votre vue, vous devez ajouter une balise `LinearLayout` avec au moins un attribut `android:orientation="vertical"`. Allez regarder la documentation pour plus de détails... Vous devez ensuite déplacer les balises `TextView` et `fragment` dans cette balise.
+Comme cet objet a l'attribut `android:layout_height="match_parent"` il va prendre tout l'espace. Pour structurer votre vue, vous devez ajouter une balise `LinearLayout` avec au moins un attribut `android:orientation="vertical"`. Allez regarder la documentation pour plus de détails... Vous devez ensuite déplacer les balises `TextView` et `fragment` dans cette balise.
 
 Voilà le résultat attendu :
 
 ![Interface attendu après l'ajout de la carte](screens/gui_ajout_carte.png "Interface attendu après l'ajout de la carte")
 
-#### Modification structurelle de l'activité
+### Modification structurelle de l'activité
 
 Pour cela, il faut modifier notre activité pour qu'elle hérite de l'objet `FragmentActivity`, elle doit aussi implémenter l'interface `OnMapReadyCallback` :
 
@@ -172,7 +179,7 @@ On en profite pour ajouter trois attributs qui vont nous permettre de :
 * stocker l'objet qui représente le marqueur donnant la position de l'utilisateur ;
 * dire si la carte est prête ou non.
 
-Cela va nous obliger à ajouter la méthode `OnMapReadyCallback`. Cette méthode est un "callback". Elle va en fait être automatiquement exécutée lorsque que la carte sera chargée.
+Cela va nous obliger à implémenter la méthode `OnMapReadyCallback`. Cette méthode est un "callback". Elle va en fait être automatiquement exécutée lorsque que la carte sera chargée.
 
 On va ajouter dans la méthode `onCreate` de l’activité les lignes suivantes :
 
@@ -198,7 +205,7 @@ Il faut ensuite implémenter la fonction `OnMapReadyCallback` :
 
 On stocke l'objet qui représente la carte et on passe le booléen `isMapReady` à `true`.
 
-#### Modification fonctionnelle de l'activité
+### Modification fonctionnelle de l'activité
 
 Dans la fonction `` qui met à jour la position de l'utilisateur, nous allons ajouter un code qui actualise la position du marqueur :
 
