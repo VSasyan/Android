@@ -10,7 +10,7 @@ Il peut être intéressant de coupler cette fonction à la prise de photo (afin 
 
 Nous allons créer une application simple affichant les coordonnées de l'utilisateur :
 
-![Interface de localisation]( "Interface de localisation")
+![Interface de localisation](screens/resultat_1.png "Interface de localisation")
 
 ### Autorisation
 
@@ -138,7 +138,7 @@ Lancez l'application. Vérifiez que vous obtenez bien la position, qu'elle est a
 
 On va modifier l'activité pour qu'elle puisse afficher sur une carte la position de l'utilisateur :
 
-
+![La position est affichée sur une carte](screens/resultat_2.png "La position est affichée sur une carte")
 
 ### Modification de la vue
 
@@ -240,11 +240,17 @@ On souhaite que l'utilisateur puisse prendre une photo, et que l'on associe la d
 
 Nous allons ajouter un bouton « Prendre un photo » qui ouvrira une nouvelle activité, permettant à l'utilisateur de prendre une photo et de la sauvegarder.
 
+Interface de départ :
+
+![Carte avec un bouton pour prendre une photo](screen/resultat_3_1.png "Carte avec un bouton pour prendre une photo")
+
+Interface de prise de photo :
+
+![Prévisualisation sur tout l’écran, la photo est prise au clique](screen/resultat_3_1.png "Prévisualisation sur tout l’écran, la photo est prise au clique")
+
 ### Ajout d'un boutton
 
-Ajout un bouton nommé "b_picture" avec pour texte « Prendre un photo », exemple :
-
-![]()
+Ajout un bouton nommé "b_picture" avec pour texte « Prendre un photo ».
 
 ### Utiliser l'appareil photos
 
@@ -296,7 +302,7 @@ On enregistre la position (objet `LatLng`) qui est un attribut de la classe `Pic
 
 Vous pouvez essayé dans un premier temps d'afficher un Toast à l'utilisateur :
 
-![]()
+![Test de la transmission d'information avec l'affichage d'un Toast](screens/activite2.png "Test de la transmission d'information avec l'affichage d'un Toast")
 
 ### Prise de la photo
 
@@ -478,7 +484,7 @@ Voici le code à utiliser :
 
 ##### Orientation
 
-Pour gérer l'orientation de la prévisualisation, nous allons encore utiliser un écouteur d'événement l'objet `OrientationEventListener` :
+Pour gérer l’orientation de la prévisualisation, nous allons encore utiliser un écouteur d’évènement l'objet `OrientationEventListener` :
 
 ```java
     private OrientationEventListener orientationEventListener = new OrientationEventListener(this) {
@@ -526,7 +532,7 @@ Lancez l'application, vous devez pouvoir prévisualiser l'image...
 
 Lorsque l’utilisateur clique sur une image, il faut maintenant sauvegarder une image.
 
-Le code exécuté au clique de l'utisateur est très simple : on lance un autofocus de la caméra (histoire de prendre un phot nette) :
+Le code exécuté au clique de l'utilisateur est très simple : on lance un autofocus de la caméra (histoire de prendre un phot nette) :
 
 ```java
             if (camera != null) {
@@ -614,7 +620,7 @@ Voici le code de la solution proposée :
 
 Vous pouvez ouvrir une des photo prises et regarder ses métadonnées :
 
-![]()
+![La photo est géo-référencée](screens/metadonnees.png "La photo est géo-référencée")
 
 Elle est bien géo-référencée.
 
