@@ -16,7 +16,7 @@ Nous allons créer une application simple affichant les coordonnées de l'utilis
 
 Pour cela, il faut dans un premier temps que l'application ait le droit d'**utiliser la position de l'utilisateur**. Cela se passe dans le fichier `AndroidManifest.xml`.
 
-Il y a deux types de **permission** de localisation existant :
+Il y a deux types de **permission** de localisation existants :
 * `ACCESS_COARSE_LOCATION` : pour une localisation approximative (via le WiFi et les antennes téléphoniques) ;
 * `ACCESS_FINE_LOCATION` : pour une localisation précise (via GNSS) ;
 
@@ -30,7 +30,7 @@ Ajouter donc les lignes suivante dans la balise `manifest` du fichier XML :
     <uses-feature android:name="android.hardware.location.gps" android:required="true" />
 ```
 
-On ne demande que la plus précise. Il y a deux lignes car l'a syntaxe de demande de permission change à partir de la version 21 de l'API d'Android.
+On ne demande que la plus précise. Il y a deux lignes car la syntaxe de demande de permission change à partir de la version 21 de l'API d'Android.
 
 ### Création du gestionaire de position
 
@@ -48,7 +48,7 @@ Comme l'a suggéré le paragraphe sur les permissions, la localisation du télé
 
 L'API d'Android permet de sélectionner automatiquement les bonnes sources en utilisant des critères.
 
-Pour aller plus vite, dans cet exercice, nous utiliserons uniquement une source, fixée en dur dans le code : `LocationManager.NETWORK_PROVIDER` (le réseau WiFi ou téléphone, donc).
+Pour aller plus vite, nous utiliserons uniquement une source dans cet exercice. Elle sera fixée en dur dans le code : `LocationManager.NETWORK_PROVIDER` (le réseau WiFi ou téléphone, donc).
 
 ### Écouteur de position
 
@@ -107,16 +107,16 @@ Comme vous pouvez le voir, l'objet permet :
 * de prévenir l'utilisateur lorsque le suivi de position est perdu/retrouvé (méthodes `onProviderEnabled` et `onProviderDisabled`) ;
 * et surtout, de récupérer les coordonnées à chaque nouvelle position (méthode `onLocationChanged`).
 
-Vous devez impérativement *implémenter* ces méthodes, par contre, elles peuvent rester vides : dans cet exercice on n'utilisera que la méthode `onLocationChanged`.
+Vous devez impérativement *implémenter* ces méthodes, par contre, elles peuvent rester vides : dans cet exercice nous n'utiliserons que la méthode `onLocationChanged`.
 
-Je vous laisse consulter ici la documentation pour connaître les paramètres de la méthode [requestLocationUpdates](<https://developer.android.com/reference/android/location/LocationManager.html#requestLocationUpdates(java.lang.String,%20long,%20float,%20android.location.LocationListener)>). Utilisez des valeurs adaptées à l’exercice...
+Je vous laisse consulter la documentation pour connaître les paramètres de la méthode [requestLocationUpdates](<https://developer.android.com/reference/android/location/LocationManager.html#requestLocationUpdates(java.lang.String,%20long,%20float,%20android.location.LocationListener)>). Utilisez des valeurs adaptées à l’exercice...
 
 Intéressons nous à l'objet `Location` passé en paramètre de la méthode de récupération de la position. La [documentation](https://developer.android.com/reference/android/location/Location.html) nous donne deux les deux fonctions à utiliser :
 * `double getLatitude()` ;
 * `double getLongitude()`.
 
 Insérez le code pour 
-* afficher dans un TextView nommé "tv_last_position" la position au format : « Lat : 45.361797 ; Lon : 5.597899 : à : 10:42:38 » ;
+* afficher dans un TextView nommé "tv_last_position" la position au format : `Lat : 45.361797 ; Lon : 5.597899 : à : 10:42:38` (utiliser `String.format`) ;
 * prévenir l'utilisateur avec un `Toast` que la position est actualisée.
 
 Le Toast est un objet Android permettant d'afficher un court message à l'utilisateur :
@@ -132,7 +132,7 @@ Arguments :
 
 ### La première version est terminée
 
-Lancez l'application. Vérifiez que vous obtenez bien la position, qu'elle est actualisée de temps en temps et qu'un Toast s'affiche à ce moment.
+Lancez l'application. Vérifiez que vous obtenez bien la position, qu'elle est actualisée de temps en temps et qu'un Toast s'affiche à chaque modification de position.
 
 ## Affichage de la position sur une carte
 
@@ -142,7 +142,7 @@ On va modifier l'activité pour qu'elle puisse afficher sur une carte la positio
 
 ### Modification de la vue
 
-Pour afficher la carte, il faut ajouter une balise `fragment` dans le fichier XML. Voici le code :
+Pour afficher la carte, il faut ajouter une balise `fragment` dans le fichier XML. Voici le code (dans mon cas, avec votre code le contexte risque de changer...) :
 
 ```xml
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
@@ -152,7 +152,7 @@ Pour afficher la carte, il faut ajouter une balise `fragment` dans le fichier XM
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="fr.ign.vsasyan.geopicture.MapsActivity" />
+            tools:context="fr.ign.vsasyan.geopicture.GeoActivity" />
 ```
 
 Comme cet objet a l'attribut `android:layout_height="match_parent"` il va prendre tout l'espace. Pour structurer votre vue, vous devez ajouter une balise `LinearLayout` avec au moins un attribut `android:orientation="vertical"`. Allez regarder la documentation pour plus de détails... Vous devez ensuite déplacer les balises `TextView` et `fragment` dans cette balise.
@@ -192,7 +192,7 @@ On va ajouter dans la méthode `onCreate` de l’activité les lignes suivantes 
 ```
 
 On récupère le fragment de carte que l'on a ajouté dans la vue et on l'instancie en objet Java. C'est ce composant qui va afficher la carte.
-La deuxième ligne permet d'initier l'affichage en précisant qu'elle méthode de callback il faut exécuter la carte est rattachée (`this`).
+La deuxième ligne permet d'initialiser l'affichage en précisant qu'elle méthode de callback il faut exécuter la carte est rattachée (`this`).
 
 
 Il faut ensuite implémenter la fonction `OnMapReadyCallback` :
@@ -209,7 +209,7 @@ On stocke l'objet qui représente la carte et on passe le booléen `isMapReady` 
 
 ### Modification fonctionnelle de l'activité
 
-Dans la fonction `` qui met à jour la position de l'utilisateur, nous allons ajouter un code qui actualise la position du marqueur :
+Dans la fonction `onLocationChanged` qui met à jour la position de l'utilisateur, nous allons ajouter un code qui actualise la position du marqueur :
 
 ```java
             if (isMapReady) {
@@ -228,29 +228,29 @@ Dans la fonction `` qui met à jour la position de l'utilisateur, nous allons aj
 
 Voici le code de la solution proposée :
 
-[]()
+[https://bitbucket.org/VSasyan/android_geopicture/src](https://bitbucket.org/VSasyan/android_geopicture/src)
 
-Vous pouvez à ce stade supprimé le `TextView` est le code utilisé pour le remplir, la carte se suffit à elle-même.
+Vous pouvez à ce stade supprimé le `TextView` ainsi que le code utilisé pour le remplir, la carte se suffit à elle-même.
 
-Pour créer une activité carte la prochaine fois, créez directement une "MapActivity" et Android Studio vous mâchera le travail...
+Pour créer une activité carte la prochaine fois, choisissez une "MapActivity" au moment de la création de l'activité et Android Studio vous mâchera le travail...
 
 ## Prise d'une photo
 
 On souhaite que l'utilisateur puisse prendre une photo, et que l'on associe la dernière position connue à l'image avant de la sauvegarder sur l'appareil.
 
-Nous allons ajouter un bouton « Prendre un photo » qui ouvrira une nouvelle activité, permettant à l'utilisateur de prendre une photo et de la sauvegarder.
+Nous allons ajouter un bouton « Prendre un photo » qui ouvrira une **nouvelle activité** permettant à l'utilisateur de prendre une photo et de la sauvegarder.
 
 Interface de départ :
 
-![Carte avec un bouton pour prendre une photo](screen/resultat_3_1.png "Carte avec un bouton pour prendre une photo")
+![Carte avec un bouton pour prendre une photo](screens/resultat_3_1.png "Carte avec un bouton pour prendre une photo")
 
 Interface de prise de photo :
 
-![Prévisualisation sur tout l’écran, la photo est prise au clique](screen/resultat_3_1.png "Prévisualisation sur tout l’écran, la photo est prise au clique")
+![Prévisualisation sur tout l’écran, la photo est prise au clique](screens/resultat_3_1.png "Prévisualisation sur tout l’écran, la photo est prise au clique")
 
 ### Ajout d'un boutton
 
-Ajout un bouton nommé "b_picture" avec pour texte « Prendre un photo ».
+Ajout un bouton nommé "b_picture" avec pour texte « Prendre une photo ».
 
 ### Utiliser l'appareil photos
 
@@ -265,11 +265,9 @@ Il faut demander les permissions permettant de prendre d'accéder à l'appareil 
     <uses-feature android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:required="true" />
 ```
 
-On doit ajouter à la vue une surface sur laquelle on peut afficher un aperçu.
-
 ### Nouvelle activité
 
-Il faut créer une nouvelle activité `PictureActivity` (File => New => EmptyAcivity).
+Il faut créer une nouvelle activité `PictureActivity` (File => New => EmptyActivity).
 
 ### Lancement d'une nouvelle activité
 
@@ -284,7 +282,7 @@ Ce lancement s'effectue grâce à l'objet `Intent` :
                 startActivity(intent);
 ```
 
-Le constructeur à besoin d'un contexte et d'une classe activité. On peut ensuite ajouter des variables (ici les coordonnées utilisateur).
+Le constructeur à besoin d'un contexte et d'une classe activité. On peut ensuite ajouter des variables (ici les coordonnées de l'utilisateur).
 
 ### Récupération de la position
 
@@ -310,6 +308,7 @@ C'est dans cette partie que ça se complique. On souhaite afficher une prévisua
 
 #### Modification de la vue
 
+On doit ajouter à la vue une surface sur laquelle on peut afficher un aperçu.
 La prévisualisation se fera grâce à l'objet `SurfaceView`, modifiez donc la vue de la nouvelle activité pour lui ajouter cet élément (nommé "sv_camera_view".
 
 ```xml
@@ -363,9 +362,9 @@ Nous devrons prochainement ajouter du code dans ces méthodes, avant cela nous a
 
 ##### Les bases
 
-Nous avons vu dans les premiers exercices qu'il était pratique pour bien présenter son code de créer deux méthodes `loadComponents` et `initEventListeners`.
-
-Dans la fonction de chargement des composants, nous avons qu'un composant à chargé : la `SurfaceView`, il faut aussi lui ajouter un OnClickListener (nommé `event_takePicture`) donc la méthode onClick prendra la photo...
+Nous avons vu dans les premiers exercices qu'il était pratique pour bien organiser son code de créer deux méthodes :
+* `loadComponents` : la fonction de chargement des composants, nous n'avons qu'un composant à chargé : la `SurfaceView` (nommée `sv_cameraView`) ;
+* `initEventListeners` : la fonction d'initialisation des événements, nous devons ajouter à l'objet `sv_cameraView` un `OnClickListener` (nommé `event_takePicture`) dont la méthode `onClick` prendra la photo.
 
 Vous aurez deux attributs de classe en plus :
 * `SurfaceView` : sv_cameraView ;
@@ -383,13 +382,13 @@ Nous aurons besoin de nouveaux attributs pour gérer :
 
 La camera doit être initialisée à l'affichage de l'activité et doit **absolument** être libérée à sa destruction (sinon les autres applications ne pourront pas y accéder et vont planter...).
 
-Nous avons vu la méthode `onCreate` associée aux activités`, il y en a d'autres permettant une utilisation plus fine :
+Nous avons vu la méthode `onCreate` associée aux activités, il y en a d'autres :
 * onCreate : méthode exécutée à la création de l'activité (une fois) ;
 * onResume : méthode exécuté lorsque l'on affiche l'activité (à chaque fois) ;
 * onPause : méthode exécuté lorsque l'on masque l'activité (à chaque fois) ;
 * onDestroy : méthode exécuté à la destruction de l'activité (une fois).
 
-Lorsque l'utilisateur change d'activité, la méthode `onPause` est exécutée. C'est en fait à ce moment qu'il faut libérer la caméra, et c'est donc dans la méthode `onResume` qu'il faut initialiser la camera.
+Lorsque l'utilisateur change d'activité ou d'application, la méthode `onPause` est exécutée. C'est en fait à ce moment qu'il faut libérer la caméra, et c'est donc dans la méthode `onResume` qu'il faut initialiser la camera.
 
 Les méthodes `onResume` et `onPause` sont aussi exécutées lorsque l'on affiche une nouvelle activité dans la même application.
 
@@ -427,7 +426,7 @@ Dans la méthode onCreate, il faut initialiser la SurfaceView :
 
 La surface est liée à notre activité, lorsque que l'activité est créée, la surface l'est aussi et quand notre activité est détruite, la surface l'est aussi. Les codes d'initialisation et de libération de la caméra peuvent donc être regroupés dans les fonctions de l'activité (`onResume` et `onPause`).
 
-Cependant quand l'utilisateur va modifier l'orientation de la camera, la méthode `surfaceChanged` sera exécutée, il faut donc que se soit dans cette fonction que l'on gère l'affichage de la prévisualisation sur la surface.
+Cependant, quand l'utilisateur va modifier l'orientation de la camera la méthode `surfaceChanged` sera exécutée. Il faut donc que se soit dans cette fonction que l'on gère l'affichage de la prévisualisation sur la surface.
 
 Voici le code à utiliser :
 
@@ -540,7 +539,7 @@ Le code exécuté au clique de l'utilisateur est très simple : on lance un auto
             }
 ```
 
-Une fois que l'auto focus est terminé, il va exécuter le callback passer en paramètre (encore une fois, c'est événementiel).
+Une fois que l'auto focus est terminé, il va exécuter le callback passer en paramètre (encore une fois, c'est **événementiel**).
 
 Il faut donc initialiser cet objet callback (c'est un attribut de la classe), ajoutez ce code dans la méthode `initEventListeners` :
 
@@ -612,17 +611,45 @@ Enfin, l'enregistrement à proprement parlé de la photo se passe dans la métho
     }
 ```
 
+Il faut ajouter les méthodes suivantes qui permettent de convertir la position GNSS au bon format :
+
+```java
+    public String getLatTagGPS() {
+        double latitude = Math.abs(this.position.latitude);
+        int num1Lat = (int)Math.floor(latitude);
+        int num2Lat = (int)Math.floor((latitude - num1Lat) * 60);
+        double num3Lat = (latitude - ((double)num1Lat+((double)num2Lat/60))) * 3600000;
+        return num1Lat+"/1,"+num2Lat+"/1,"+num3Lat+"/1000";
+    }
+
+    public String getLonTagGPS() {
+        double longitude = Math.abs(this.position.longitude);
+        int num1Lon = (int)Math.floor(longitude);
+        int num2Lon = (int)Math.floor((longitude - num1Lon) * 60);
+        double num3Lon = (longitude - ((double)num1Lon+((double)num2Lon/60))) * 3600000;
+        return num1Lon+"/1,"+num2Lon+"/1,"+num3Lon+"/1000";
+    }
+
+    public String getLatRefTagGps() {
+        if (this.position.latitude > 0) {return "N";} else {return "S";}
+    }
+
+    public String getLonRefTagGps() {
+        if (this.position.longitude > 0) {return "E";} else {return "W";}
+    }
+```
+
 ### Notes
 
 Voici le code de la solution proposée :
 
-[]()
+[https://bitbucket.org/VSasyan/android_geopicture/src - Branche "Photo"](https://bitbucket.org/VSasyan/android_geopicture/src/62017a1e0020666403f93420075f52fe7da1dfb2?at=photo)
 
-Vous pouvez ouvrir une des photo prises et regarder ses métadonnées :
+Vous pouvez ouvrir une des photos prises à l'aide d'une application spécialisée et regarder ses métadonnées :
 
-![La photo est géo-référencée](screens/metadonnees.png "La photo est géo-référencée")
+![La photo est bien géo-référencée](screens/metadonnees.png "La photo est bien géo-référencée")
 
-Elle est bien géo-référencée.
+La photo est bien **géo-référencée**.
 
 ## Conclusion
 
