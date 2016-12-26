@@ -136,7 +136,9 @@ Lancez l'application. Vérifiez que vous obtenez bien la position, qu'elle est a
 
 ## Affichage de la position sur une carte
 
-On va modifier l'activité pour qu'elle puisse afficher une carte. Ainsi on pourra pointer la position de l'utilisateur sur une carte !
+On va modifier l'activité pour qu'elle puisse afficher sur une carte la position de l'utilisateur :
+
+
 
 ### Modification de la vue
 
@@ -222,22 +224,405 @@ Dans la fonction `` qui met à jour la position de l'utilisateur, nous allons aj
             }
 ```
 
-// TODO
+### Notes
+
+Voici le code de la solution proposée :
+
+[]()
+
+Vous pouvez à ce stade supprimé le `TextView` est le code utilisé pour le remplir, la carte se suffit à elle-même.
+
+Pour créer une activité carte la prochaine fois, créez directement une "MapActivity" et Android Studio vous mâchera le travail...
 
 ## Prise d'une photo
 
-On souhaite que l'utilisateur puisse prendre une photo, et que l'on associe la dernière position connue à l'image avant de la sauvegarder sur l'appareil. On ouvrira une nouvelle activité, elle permettra à l'utilisateur de prendre une photo et de la sauvegarder.
+On souhaite que l'utilisateur puisse prendre une photo, et que l'on associe la dernière position connue à l'image avant de la sauvegarder sur l'appareil.
+
+Nous allons ajouter un bouton « Prendre un photo » qui ouvrira une nouvelle activité, permettant à l'utilisateur de prendre une photo et de la sauvegarder.
+
+### Ajout d'un boutton
+
+Ajout un bouton nommé "b_picture" avec pour texte « Prendre un photo », exemple :
+
+![]()
 
 ### Utiliser l'appareil photos
 
 Il faut demander les permissions permettant de prendre d'accéder à l'appareil photo et d'écrire sur l'appareil :
 
 ```xml
-    <uses-permission android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- Needed only if your app targets Android 5.0 (API level 21) or higher. -->
     <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="true"/>
     <uses-feature android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:required="true" />
 ```
 
 On doit ajouter à la vue une surface sur laquelle on peut afficher un aperçu.
+
+### Nouvelle activité
+
+Il faut créer une nouvelle activité `PictureActivity` (File => New => EmptyAcivity).
+
+### Lancement d'une nouvelle activité
+
+Pour lancer une nouvelle activité, nous allons ajouter un écouteur d’événement au bouton. La fonction onClick devra vérifier si une position existe (`lastLocation != null`) et lancer la nouvelle activité.
+
+Ce lancement s'effectue grâce à l'objet `Intent` :
+
+```java
+                Intent intent = new Intent(GeoActivity.this, PictureActivity.class);
+                intent.putExtra("lat", lastLocation.getLatitude());
+                intent.putExtra("lon", lastLocation.getLongitude());
+                startActivity(intent);
+```
+
+Le constructeur à besoin d'un contexte et d'une classe activité. On peut ensuite ajouter des variables (ici les coordonnées utilisateur).
+
+### Récupération de la position
+
+Dans la méthode `onCreate` de la nouvelle activité, il va falloir récupérer cet `intent`. Il faut utiliser les méthodes `getIntent`, `getExtras` et `getDouble` :
+
+```java
+        // Recuperation of the position:
+        Intent intent = getIntent();
+        double lat = intent.getExtras().getDouble("lat");
+        double lon = intent.getExtras().getDouble("lon");
+        position = new LatLng(lat, lon);
+```
+
+On enregistre la position (objet `LatLng`) qui est un attribut de la classe `PictureActivity`.
+
+Vous pouvez essayé dans un premier temps d'afficher un Toast à l'utilisateur :
+
+![]()
+
+### Prise de la photo
+
+C'est dans cette partie que ça se complique. On souhaite afficher une prévisualisation à l'utilisateur sur l'ensemble de l'activité. Puis quand l'utilisateur touche l'écran on prend la photo, on la sauvegarde et on retourne à l'activité principale (`GeoActivity`).
+
+#### Modification de la vue
+
+La prévisualisation se fera grâce à l'objet `SurfaceView`, modifiez donc la vue de la nouvelle activité pour lui ajouter cet élément (nommé "sv_camera_view".
+
+```xml
+    <SurfaceView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/sv_camera_view"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+```
+
+(Voici le code de l'élément si besoin, ou regardez dans le menu "Palette"...)
+
+#### Modification de l'activité
+
+##### Héritage
+
+L’activité doit implémenter les interfaces `SurfaceHolder.Callback` et `Camera.PictureCallback`, cela nous oblige à implémenter les méthodes de création, changement et destruction de surfaces et la méthode `onPictureTaken` :
+
+```java
+public class PictureActivity extends AppCompatActivity implements SurfaceHolder.Callback, Camera.PictureCallback {
+
+    // ...
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        
+    }
+
+    public void onPictureTaken(byte[] bytes, Camera camera) {
+
+    }
+}
+```
+
+Nous devrons prochainement ajouter du code dans ces méthodes, avant cela nous allons repartir du début...
+
+##### Les bases
+
+Nous avons vu dans les premiers exercices qu'il était pratique pour bien présenter son code de créer deux méthodes `loadComponents` et `initEventListeners`.
+
+Dans la fonction de chargement des composants, nous avons qu'un composant à chargé : la `SurfaceView`, il faut aussi lui ajouter un OnClickListener (nommé `event_takePicture`) donc la méthode onClick prendra la photo...
+
+Vous aurez deux attributs de classe en plus :
+* `SurfaceView` : sv_cameraView ;
+* `View.OnClickListener` : event_takePicture.
+
+##### La camera
+
+Nous aurons besoin de nouveaux attributs pour gérer :
+* un booléen pour indiquer l'état de la prévisualisation (`boolean isPreview = false`);
+* l'objet camera (`Camera camera`) ;
+* l'orientation de la camera (`int angleOrientation = 0`) ;
+* les changements d'orientation de la camera (`OrientationEventListener orientationEventListener`) ;
+* l'auto focus de la camera (`Camera.AutoFocusCallback autoFocusCallback`) :
+* l'identifiant de la caméra (`public int cameraId = 0`) pour utiliser la caméra avant ou la caméra arrière.
+
+La camera doit être initialisée à l'affichage de l'activité et doit **absolument** être libérée à sa destruction (sinon les autres applications ne pourront pas y accéder et vont planter...).
+
+Nous avons vu la méthode `onCreate` associée aux activités`, il y en a d'autres permettant une utilisation plus fine :
+* onCreate : méthode exécutée à la création de l'activité (une fois) ;
+* onResume : méthode exécuté lorsque l'on affiche l'activité (à chaque fois) ;
+* onPause : méthode exécuté lorsque l'on masque l'activité (à chaque fois) ;
+* onDestroy : méthode exécuté à la destruction de l'activité (une fois).
+
+Lorsque l'utilisateur change d'activité, la méthode `onPause` est exécutée. C'est en fait à ce moment qu'il faut libérer la caméra, et c'est donc dans la méthode `onResume` qu'il faut initialiser la camera.
+
+Les méthodes `onResume` et `onPause` sont aussi exécutées lorsque l'on affiche une nouvelle activité dans la même application.
+
+Voici le code à mettre dans ces méthodes :
+
+```java
+    @Override
+    public void onResume() {
+        super.onResume();
+        camera = Camera.open();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (camera != null) {
+            camera.stopPreview();
+            camera.release();
+            camera = null;
+        }
+    }
+```
+
+**Note** : `onPause` est exécutée avant `onDestroy` et `onResume` est exécutée après `onCreate`.
+
+##### Retour à la surface de prévisualisation
+
+Dans la méthode onCreate, il faut initialiser la SurfaceView :
+
+```java
+        surfaceCamera.getHolder().addCallback(this);
+        surfaceCamera.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+```
+
+La surface est liée à notre activité, lorsque que l'activité est créée, la surface l'est aussi et quand notre activité est détruite, la surface l'est aussi. Les codes d'initialisation et de libération de la caméra peuvent donc être regroupés dans les fonctions de l'activité (`onResume` et `onPause`).
+
+Cependant quand l'utilisateur va modifier l'orientation de la camera, la méthode `surfaceChanged` sera exécutée, il faut donc que se soit dans cette fonction que l'on gère l'affichage de la prévisualisation sur la surface.
+
+Voici le code à utiliser :
+
+```java
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+        // Stop preview mode if running
+        if (isPreview) {
+            camera.stopPreview();
+        }
+
+        // Get camera parameters
+        Camera.Parameters parameters = camera.getParameters();
+
+        // Nous changeons la taille
+        parameters.setPreviewSize(parameters.getPreviewSize().width, parameters.getPreviewSize().height);
+        parameters.setGpsLatitude(position.latitude);
+        parameters.setGpsLongitude(position.longitude);
+
+        // Get the best size for previsualisation
+        Camera.Size size;
+        size = getBestSize(parameters.getSupportedPreviewSizes());
+        parameters.setPreviewSize(size.width, size.height);
+        // Get the best picture size for the files :
+        size = getBestSize(parameters.getSupportedPictureSizes());
+        parameters.setPictureSize(size.width, size.height);
+
+        // Apply new paramters
+        camera.setParameters(parameters);
+
+        try { // Make link between surfaceView and the camera
+            camera.setPreviewDisplay(sv_cameraView.getHolder());
+        } catch (IOException e) {
+            // TODO: handle exception
+        }
+
+        // Run preview
+        camera.startPreview();
+
+        isPreview = true;
+    }
+
+    public Camera.Size getBestSize(List<Camera.Size> sizes) {
+        Camera.Size bestSize = sizes.get(0);
+        for(int i = 1; i < sizes.size(); i++){
+            if((sizes.get(i).width * sizes.get(i).height) > (bestSize.width * bestSize.height)){
+                bestSize = sizes.get(i);
+            }
+        }
+        return bestSize;
+    }
+```
+
+##### Orientation
+
+Pour gérer l'orientation de la prévisualisation, nous allons encore utiliser un écouteur d'événement l'objet `OrientationEventListener` :
+
+```java
+    private OrientationEventListener orientationEventListener = new OrientationEventListener(this) {
+        public void onOrientationChanged(int orientation) {
+            android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
+            android.hardware.Camera.getCameraInfo(cameraId, info);
+            int rotation = PictureActivity.this.getWindowManager().getDefaultDisplay().getRotation();
+            int degrees = 0;
+            switch (rotation) {
+                case Surface.ROTATION_0:
+                    degrees = 0;
+                    break;
+                case Surface.ROTATION_90:
+                    degrees = 90;
+                    break;
+                case Surface.ROTATION_180:
+                    degrees = 180;
+                    break;
+                case Surface.ROTATION_270:
+                    degrees = 270;
+                    break;
+            }
+
+            int result;
+            if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                result = (info.orientation + degrees) % 360;
+                result = (360 - result) % 360; // compensate the mirror
+            } else { // back-facing
+                result = (info.orientation - degrees + 360) % 360;
+            }
+            if (camera != null) {camera.setDisplayOrientation(result);}
+            angleOrientation = result;
+        }
+    };
+```
+
+Cet écouteur d'événement est désactivé par défaut, il faut l'activé ou le désactivé dans les méthodes `onResume` et `onPause` (`orientationEventListener.enable()` et `orientationEventListener.disabled()`).
+
+##### Premier test
+
+Lancez l'application, vous devez pouvoir prévisualiser l'image...
+
+
+##### Prise d'une image
+
+Lorsque l’utilisateur clique sur une image, il faut maintenant sauvegarder une image.
+
+Le code exécuté au clique de l'utisateur est très simple : on lance un autofocus de la caméra (histoire de prendre un phot nette) :
+
+```java
+            if (camera != null) {
+                camera.autoFocus(autoFocusCallback);
+            }
+```
+
+Une fois que l'auto focus est terminé, il va exécuter le callback passer en paramètre (encore une fois, c'est événementiel).
+
+Il faut donc initialiser cet objet callback (c'est un attribut de la classe), ajoutez ce code dans la méthode `initEventListeners` :
+
+```java
+        autoFocusCallback = new Camera.AutoFocusCallback(){
+            @Override
+            public void onAutoFocus(boolean arg0, Camera arg1) {
+                try {
+                    camera.takePicture(null, null, PictureActivity.this);
+                } catch (Exception e) {
+                    Toast.makeText(PictureActivity.this, "Impossible de sauvegarder la photo : " + e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+```
+
+Enfin, l'enregistrement à proprement parlé de la photo se passe dans la méthode `onPictureTaken` :
+
+```java
+    public void onPictureTaken(byte[] bytes, Camera camera) {
+        File pictureFileDir = Environment.getExternalStoragePublicDirectory(DIRECTORY_PICTURES);
+
+        if (!pictureFileDir.exists() && !pictureFileDir.mkdirs()) {
+            Toast.makeText(PictureActivity.this, "Can't create directory to save image.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        int width = bmp.getWidth();
+        int height = bmp.getHeight();
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angleOrientation);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(bmp, 0, 0, width, height, matrix, true);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH_mm_ss");
+        String date = dateFormat.format(new Date());
+        String photoFile = "Picture_" + date + ".jpg";
+
+        String filename = pictureFileDir.getPath() + File.separator + photoFile;
+
+        File pictureFile = new File(filename);
+
+        try {
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            boolean result = rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos);
+            fos.write(bytes);
+            fos.close();
+            if (result) {
+                // Now we add exif information :
+                ExifInterface exif = new ExifInterface(filename);
+                exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE, getLatTagGPS());
+                exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, getLonTagGPS());
+                exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE_REF, getLatRefTagGps());
+                exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF, getLonRefTagGps());
+                exif.setAttribute(ExifInterface.TAG_FLASH, camera.getParameters().getFlashMode());
+                exif.saveAttributes();
+                Toast.makeText(PictureActivity.this, "New Image saved with the EXIF information: " + photoFile, Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(PictureActivity.this, "Couldn't save image:" + photoFile, Toast.LENGTH_LONG).show();
+                //camera.startPreview();
+            }
+        } catch (Exception error) {
+            Toast.makeText(PictureActivity.this, "Image could not be saved.", Toast.LENGTH_LONG).show();
+        }
+
+        // Close activity
+        finish();
+    }
+```
+
+### Notes
+
+Voici le code de la solution proposée :
+
+[]()
+
+Vous pouvez ouvrir une des photo prises et regarder ses métadonnées :
+
+![]()
+
+Elle est bien géo-référencée.
+
+## Conclusion
+
+Dans ce chapitre vous avez appris à :
+* lancer une nouvelle activité en lui passant de paramètres ;
+* utiliser la géolocalisation ;
+* utiliser l'API Google Maps ;
+* utiliser l'appareil photo ;
+* utiliser de nouveaux callbacks et de nouveaux écouteurs d’événements.
