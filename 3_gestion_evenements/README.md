@@ -68,12 +68,12 @@ Exemples :
 
 ```java
     String.format("Mon prénom est %s.", "Valentin"); // Mon prénom est Valentin
-    String.format("La réponse est %d.", 42); // La réponse est 42
-    String.format("Pi vaut %2.4f.", Math.PI); // Pi vaut 3.1415
-    String.format("Pi vaut %3.2f.", Math.PI); // Pi vaut 003.14
+    String.format("La réponse est %d", 42); // La réponse est 42
+    String.format("Pi vaut %2.4f", Math.PI); // Pi vaut 3.1415
+    String.format("Pi vaut %3.2f", Math.PI); // Pi vaut 003.14
 ```
 
-### Une autre manière d'ajouter des event listerners
+### Une autre manière d'ajouter des event listeners
 
 Nous avons vu au chapitre précédent qu'il était possible d'ajouter des écouteurs d'événement grâce au code XML.
 Il est aussi possible de le faire via le code Java.

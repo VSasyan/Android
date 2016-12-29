@@ -1,6 +1,6 @@
-# Géolocalisation et Appareil photos
+# Géolocalisation et Appareil photo
 
-Dans de nombreuse applications, connaître la position de l'utilisateur est déterminant.
+Dans de nombreuses applications, connaître la position de l'utilisateur est déterminant.
 Cela est directement géré par l'API Android et il est donc très simple d'accéder à ces données via une application.
 
 Il peut être intéressant de coupler cette fonction à la prise de photo (afin de créer des photos géo-référencées).
@@ -20,9 +20,9 @@ Il y a deux types de **permission** de localisation existants :
 * `ACCESS_COARSE_LOCATION` : pour une localisation approximative (via le WiFi et les antennes téléphoniques) ;
 * `ACCESS_FINE_LOCATION` : pour une localisation précise (via GNSS) ;
 
-La première permission est automatiquement requise avec la seconde.
+La première permission est automatiquement acquise lorsque la seconde est demandée.
 
-Ajouter donc les lignes suivante dans la balise `manifest` du fichier XML :
+Ajoutez donc les lignes suivantes dans la balise `manifest` du fichier XML :
 
 ```xml
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -111,7 +111,7 @@ Vous devez impérativement *implémenter* ces méthodes, par contre, elles peuve
 
 Je vous laisse consulter la documentation pour connaître les paramètres de la méthode [requestLocationUpdates](<https://developer.android.com/reference/android/location/LocationManager.html#requestLocationUpdates(java.lang.String,%20long,%20float,%20android.location.LocationListener)>). Utilisez des valeurs adaptées à l’exercice...
 
-Intéressons nous à l'objet `Location` passé en paramètre de la méthode de récupération de la position. La [documentation](https://developer.android.com/reference/android/location/Location.html) nous donne deux les deux fonctions à utiliser :
+Intéressons nous à l'objet `Location` passé en paramètre de la méthode de récupération de la position. La [documentation](https://developer.android.com/reference/android/location/Location.html) nous donne les deux fonctions à utiliser :
 * `double getLatitude()` ;
 * `double getLongitude()`.
 
@@ -192,10 +192,9 @@ On va ajouter dans la méthode `onCreate` de l’activité les lignes suivantes 
 ```
 
 On récupère le fragment de carte que l'on a ajouté dans la vue et on l'instancie en objet Java. C'est ce composant qui va afficher la carte.
-La deuxième ligne permet d'initialiser l'affichage en précisant qu'elle méthode de callback il faut exécuter la carte est rattachée (`this`).
+La deuxième ligne permet d'initialiser l'affichage en précisant qu'elle méthode de callback il faut exécuter lorsque la carte est initialisée. On souhaite ici éxécuter la méthode `OnMapReady` attachée à notre activité.
 
-
-Il faut ensuite implémenter la fonction `OnMapReadyCallback` :
+Il faut ensuite implémenter la fonction `onMapReady` :
 
 ```java
     @Override
@@ -228,9 +227,9 @@ Dans la fonction `onLocationChanged` qui met à jour la position de l'utilisateu
 
 Voici le code de la solution proposée :
 
-[https://bitbucket.org/VSasyan/android_geopicture/src](https://bitbucket.org/VSasyan/android_geopicture/src)
+[https://bitbucket.org/VSasyan/android_geopicture/src - Branche "master"](https://bitbucket.org/VSasyan/android_geopicture/src)
 
-Vous pouvez à ce stade supprimé le `TextView` ainsi que le code utilisé pour le remplir, la carte se suffit à elle-même.
+Vous pouvez à ce stade supprimer le `TextView` ainsi que le code utilisé pour le remplir, la carte se suffit à elle-même.
 
 Pour créer une activité carte la prochaine fois, choisissez une "MapActivity" au moment de la création de l'activité et Android Studio vous mâchera le travail...
 
@@ -238,7 +237,7 @@ Pour créer une activité carte la prochaine fois, choisissez une "MapActivity" 
 
 On souhaite que l'utilisateur puisse prendre une photo, et que l'on associe la dernière position connue à l'image avant de la sauvegarder sur l'appareil.
 
-Nous allons ajouter un bouton « Prendre un photo » qui ouvrira une **nouvelle activité** permettant à l'utilisateur de prendre une photo et de la sauvegarder.
+Nous allons ajouter un bouton « Prendre une photo » qui ouvrira une **nouvelle activité** permettant à l'utilisateur de prendre une photo et de la sauvegarder.
 
 Interface de départ :
 
@@ -252,9 +251,9 @@ Interface de prise de photo :
 
 Ajout un bouton nommé "b_picture" avec pour texte « Prendre une photo ».
 
-### Utiliser l'appareil photos
+### Utiliser l'appareil photo
 
-Il faut demander les permissions permettant de prendre d'accéder à l'appareil photo et d'écrire sur l'appareil :
+Il faut demander les permissions permettant d'utiliser l'appareil photo et d'écrire des fichiers sur la mémoire de l'appareil :
 
 ```xml
     <uses-permission android:name="android.permission.CAMERA" />
@@ -298,7 +297,7 @@ Dans la méthode `onCreate` de la nouvelle activité, il va falloir récupérer 
 
 On enregistre la position (objet `LatLng`) qui est un attribut de la classe `PictureActivity`.
 
-Vous pouvez essayé dans un premier temps d'afficher un Toast à l'utilisateur :
+Vous pouvez essayr dans un premier temps d'afficher un Toast à l'utilisateur :
 
 ![Test de la transmission d'information avec l'affichage d'un Toast](screens/activite2.png "Test de la transmission d'information avec l'affichage d'un Toast")
 
@@ -311,6 +310,8 @@ C'est dans cette partie que ça se complique. On souhaite afficher une prévisua
 On doit ajouter à la vue une surface sur laquelle on peut afficher un aperçu.
 La prévisualisation se fera grâce à l'objet `SurfaceView`, modifiez donc la vue de la nouvelle activité pour lui ajouter cet élément (nommé "sv_camera_view".
 
+Regardez dans le menu "Palette" ! Voici le code de l'élément si besoin :
+
 ```xml
     <SurfaceView
         android:layout_width="wrap_content"
@@ -322,9 +323,11 @@ La prévisualisation se fera grâce à l'objet `SurfaceView`, modifiez donc la v
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-```
 
-(Voici le code de l'élément si besoin, ou regardez dans le menu "Palette"...)
+        <!-- Les autres composants -->
+
+    </SurfaceView>
+```
 
 #### Modification de l'activité
 
@@ -363,7 +366,7 @@ Nous devrons prochainement ajouter du code dans ces méthodes, avant cela nous a
 ##### Les bases
 
 Nous avons vu dans les premiers exercices qu'il était pratique pour bien organiser son code de créer deux méthodes :
-* `loadComponents` : la fonction de chargement des composants, nous n'avons qu'un composant à chargé : la `SurfaceView` (nommée `sv_cameraView`) ;
+* `loadComponents` : la fonction de chargement des composants, nous n'avons qu'un composant à charger : la `SurfaceView` (nommée `sv_cameraView`) ;
 * `initEventListeners` : la fonction d'initialisation des événements, nous devons ajouter à l'objet `sv_cameraView` un `OnClickListener` (nommé `event_takePicture`) dont la méthode `onClick` prendra la photo.
 
 Vous aurez deux attributs de classe en plus :
@@ -384,9 +387,9 @@ La camera doit être initialisée à l'affichage de l'activité et doit **absolu
 
 Nous avons vu la méthode `onCreate` associée aux activités, il y en a d'autres :
 * onCreate : méthode exécutée à la création de l'activité (une fois) ;
-* onResume : méthode exécuté lorsque l'on affiche l'activité (à chaque fois) ;
-* onPause : méthode exécuté lorsque l'on masque l'activité (à chaque fois) ;
-* onDestroy : méthode exécuté à la destruction de l'activité (une fois).
+* onResume : méthode exécutée lorsque l'on affiche l'activité (à chaque fois) ;
+* onPause : méthode exécutée lorsque l'on masque l'activité (à chaque fois) ;
+* onDestroy : méthode exécutée à la destruction de l'activité (une fois).
 
 Lorsque l'utilisateur change d'activité ou d'application, la méthode `onPause` est exécutée. C'est en fait à ce moment qu'il faut libérer la caméra, et c'est donc dans la méthode `onResume` qu'il faut initialiser la camera.
 
@@ -520,7 +523,7 @@ Pour gérer l’orientation de la prévisualisation, nous allons encore utiliser
     };
 ```
 
-Cet écouteur d'événement est désactivé par défaut, il faut l'activé ou le désactivé dans les méthodes `onResume` et `onPause` (`orientationEventListener.enable()` et `orientationEventListener.disabled()`).
+Cet écouteur d'événement est désactivé par défaut, il faut l'activer ou le désactiver dans les méthodes `onResume` et `onPause` (`orientationEventListener.enable()` et `orientationEventListener.disabled()`).
 
 ##### Premier test
 
@@ -531,7 +534,7 @@ Lancez l'application, vous devez pouvoir prévisualiser l'image...
 
 Lorsque l’utilisateur clique sur une image, il faut maintenant sauvegarder une image.
 
-Le code exécuté au clique de l'utilisateur est très simple : on lance un autofocus de la caméra (histoire de prendre un phot nette) :
+Le code exécuté au clique de l'utilisateur est très simple : on lance un autofocus de la caméra (histoire de prendre une photo nette) :
 
 ```java
             if (camera != null) {
@@ -539,7 +542,7 @@ Le code exécuté au clique de l'utilisateur est très simple : on lance un auto
             }
 ```
 
-Une fois que l'auto focus est terminé, il va exécuter le callback passer en paramètre (encore une fois, c'est **événementiel**).
+Une fois que l'auto focus est terminé, il va exécuter le callback passé en paramètre (encore une fois, c'est **événementiel**).
 
 Il faut donc initialiser cet objet callback (c'est un attribut de la classe), ajoutez ce code dans la méthode `initEventListeners` :
 
@@ -556,7 +559,7 @@ Il faut donc initialiser cet objet callback (c'est un attribut de la classe), aj
         };
 ```
 
-Enfin, l'enregistrement à proprement parlé de la photo se passe dans la méthode `onPictureTaken` :
+Enfin, l'enregistrement à proprement parler de la photo se passe dans la méthode `onPictureTaken` :
 
 ```java
     public void onPictureTaken(byte[] bytes, Camera camera) {

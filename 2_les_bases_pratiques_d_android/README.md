@@ -2,7 +2,7 @@
 
 Pour mettre en pratique l'utilisation d'Android Studio et prendre
 en main un projet Android, nous allons créer une application simulant
-un lancé de pièce (pile ou face).
+un lancer de pièce (pile ou face).
 
 
 ## Le principe de l'application
@@ -12,7 +12,7 @@ Il y aura, stockés dans les ressources, deux labels correspondant aux résultat
 en français et anglais ("Pile" ou "Face" et "Tail" ou "Head").
 
 Au démarrage de l'application, le programme génère un booléen aléatoirement égal à `true` ou `false`, et
-affiche le label correspondant. L'utilisateur peut effectuer un nouveau lancé en cliquant sur un bouton.
+affiche le label correspondant. L'utilisateur peut effectuer un nouveau lancer en cliquant sur un bouton.
 
 Grâce à la bonne utilisation des fichiers de ressources, l'application est
 automatiquement traduite (vous pouvez changer la langue de votre téléphone pour voir).
@@ -98,9 +98,9 @@ Remarquez que le programme a en fait créé un deuxième fichier XML :
 
 Nous allons maintenant modifier l'activité. La méthode `onCreate` est exécutée à la création de l'activité. Comme cette activité est l'activité de démarrage de l'application, cette fonction sera exécutée sans intervention de l'utilisateur.
 
-Vous pouvez voir qu'il y a deux lignes dans la fonctions, elle permettent d'afficher la vue, effectuez vos modifications après.
+Vous pouvez voir qu'il y a deux lignes dans la fonction, elle permettent d'afficher la vue, effectuez vos modifications après.
 
-Il faut dans un premier temps récupérer le TextView dans la vue, ensuite, on génère un nombre égal à 1 ou 0, enfin, on ajout dans le TextView le label correspondant au nombre généré.
+Il faut dans un premier temps récupérer le TextView dans la vue, ensuite, on génère un nombre égal à 1 ou 0, enfin, on ajoute dans le TextView le label correspondant au nombre généré.
 
 Voici la fonction onCreate à obtenir :
 
@@ -219,17 +219,17 @@ Voici le code XML obtenu :
 </RelativeLayout>
 ```
 
-Nous voulons que Java générer un événement lorsque l'utilisateur clique sur le bouton.
+Nous voulons que Java génère un événement lorsque l'utilisateur clique sur le bouton.
 Pour cela, nous devons utiliser un *event listener* (écouteur d'événement). Il y a plusieurs manières pour ajouter un event listener, ici nous l'avons fait directement dans le code XML.
 
-La **ligne la plus important** est le `android:onClick="coinFlip"`, qui permet d'associer le clique d'un utilisateur sur le bouton à la méthode `coinFlip` de l'activité `DiceActivity`. Cela fonctionne **uniquement** car l'activité et la vue sont associées. De plus, la méthode doit être **publique** est avoir une signature particulière pour être appelée par l’événement `onClick` : elle ne doit rien retourner (`void`) et prendre en paramètre une instance de la classe `View` : `void coinFlip(View view)`.
+La **ligne la plus importante** est le `android:onClick="coinFlip"`, qui permet d'associer le clique d'un utilisateur sur le bouton à la méthode `coinFlip` de l'activité `DiceActivity`. Cela fonctionne **uniquement** car l'activité et la vue sont associées. De plus, la méthode doit être **publique** et avoir une signature particulière pour être appelée par l’événement `onClick` : elle ne doit rien retourner (`void`) et prendre en paramètre une instance de la classe `View` : `void coinFlip(View view)`.
 
 L'*event listener* demande au programme d'écouter les actions de l'utilisateur et d'exécuter la fonction associée à chaque action. On parle de **programmation événementielle**.
 
 ### 6) Ajout de la fonction
 
 Retournez dans l'activité `DiceActivity`. Ajoutez une fonction publique `coinFlip`.
-Réagencez le code pour que le programme ajoute le résultat des lancés à la suite des autres.
+Réagencez le code pour que le programme ajoute le résultat des lancers à la suite des autres.
 
 Modifiez la méthode `onCreate` pour qu'elle appelle la fonction `coinFlip` (au lieu de dupliquer le code). Pour appeler cette fonction, il vous faudra donc lui passer une instance nulle en paramètre (`coinFlip(null);`) qui représente l'objet `View` demandé en paramètre.
 

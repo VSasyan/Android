@@ -21,7 +21,7 @@
 
 [Une gestion avancée des évènements](3_gestion_evenements/README.md)
 
-## Géolocalisation et Appareil photos
+## Géolocalisation et Appareil photo
 
 [Une interface utilisateur avancée](4_geoloc_camera/README.md)
 

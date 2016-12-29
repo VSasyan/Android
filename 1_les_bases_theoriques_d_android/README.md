@@ -34,7 +34,7 @@
  * Nom et icône
  * Permissions
  * Compatibilité (API)
- * Liste les activités
+ * Liste des activités
 
 #### Ressources
 
@@ -48,5 +48,5 @@
 
 * Les classes java
  * Activités : contrôleurs associés aux vues
- * Services : classes spécialisées permettant de gérer la données
+ * Services : classes spécialisées permettant de gérer les données
  * ...
