@@ -17,7 +17,7 @@
 
 [Les bases (pratiques) d'Android](2_les_bases_pratiques_d_android/README.md)
 
-## Une interface utilisateur avancée
+## Une gestion avancée des évènements
 
 [Une gestion avancée des évènements](3_gestion_evenements/README.md)
 
@@ -25,8 +25,10 @@
 
 [Une interface utilisateur avancée](4_geoloc_camera/README.md)
 
-## Les capteurs
+## Les capteurs (facultatif)
+
+[Les capteurs](5_les_capteurs/README.md)
 
 ## Utilisation de SQLite
 
-## Conclusion
+[Utilisation de SQLite](6_utilisation_sqlite/SQLite.pdf)
