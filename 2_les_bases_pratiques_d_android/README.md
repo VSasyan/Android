@@ -172,6 +172,8 @@ Vous utilisez des librairies, il faut donc les importer (Android Studio arrive t
 Connectez votre téléphone à l'ordinateur et lancez le programme dans Android Studio (`Maj+F10`).
 Android Studio ouvre une fenêtre : sélectionnez votre mobile. L'application doit se lancer sur votre téléphone !
 
+Vous aurez peut-être besoin d'installer les pilotes ADB : [Voir ce document](Installation des pilotes ADB.pdf)
+
 ### 5) Ajout du bouton
 
 Votre programme fonctionne ! On va maintenant ajouter un bouton pour que l'utilisateur puisse relancer une pièce !
