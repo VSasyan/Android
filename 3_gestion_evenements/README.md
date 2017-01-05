@@ -43,6 +43,22 @@ où T est la taille en *mètre* et P le poids en *kilogramme*.
 
 ## Guide
 
+### Récupérer les informations saisies par l'utilisateur
+
+Il faudra convertir les chaînes de caractères (String) saisies par l'utilisateur dans les EditText en valeurs numériques (float) pour pouvoir les utiliser.
+
+Voici comment accéder au contenu d'un EditText :
+
+```java
+    String s_valeur = et_champs.getText().toString();
+```
+
+Et voici comment convertir un String en float :
+
+```java
+    float f_valeur = Float.parseFloat(s_valeur);
+```
+
 ### Formatage de String
 
 Comme beaucoup de langages, Java permet de formater les chaînes de caractères avec des variables. Il faut par exemple écrire :
@@ -102,13 +118,13 @@ public class ImcActivity extends AppCompatActivity {
         // Instanciate the button
         b_button = (Button)findViewById(R.id.b_button);
 
-        // Add anonym event listener
-        b_button.setOnClickListener(toTo);
+        // Add eventListener event listener
+        b_button.setOnClickListener(eventListener);
 
     }
 
-    // The event listener
-    private View.OnClickListener toTo = new View.OnClickListener() {
+    // Define the eventListener event listener
+    private View.OnClickListener eventListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             // The function
@@ -146,9 +162,9 @@ public class ImcActivity extends AppCompatActivity {
 }
 ```
 
-On parle en général d'*event* listener car cela dépend du type d'événement. Sur un bouton, on va souhaiter détecter un clique (grâce à l'objet `OnClickListener` et sa méthode `OnClick`), dans un champ de texte (`EditText`) on va plutôt souhaiter suivre l'évolution du texte (grâce à l'objet `TextWatcher` et ses méthodes `onTextChanged`, `beforeTextChanged` ou `afterTextChanged` par exemple).
+On parle en général d'*event* listener car cela dépend du type d'événement. Sur un bouton, on va souhaiter détecter un clique (grâce à l'objet `OnClickListener` et sa méthode `onClick`), dans un champ de texte (`EditText`) on va plutôt souhaiter suivre l'évolution du texte (grâce à l'objet `TextWatcher` et ses méthodes `onTextChanged`, `beforeTextChanged` ou `afterTextChanged` par exemple).
 
-Notez bien que l'écouteur d'évènement est un **objet** et non une **simple méthode** (comme en Javascript par exemple). Le code à exécuter est donc contenu dans une de ses méthodes (par exemple la méthode `OnClick` dans le cas d'un `OnClickListener`).
+Notez bien que l'écouteur d'évènement est un **objet** et non une **simple méthode** (comme en Javascript par exemple). Le code à exécuter est donc contenu dans une de ses méthodes (par exemple la méthode `onClick` dans le cas d'un `OnClickListener`).
 
 ### Comment démarrer ?
 
@@ -160,9 +176,9 @@ On a vu grâce à l'exercice précédent qu'il vous faudra :
 
 Pour le premier point, ça doit être une tâche facile.
 
-Pour le 2ème point, créez deux `View.OnClickListener` en attribut de votre classe `ImcActivity`, ce sont les écouteurs d'événements qui seront associés aux boutons dans la fonction `addEventListener`. L'un s'appellera `reset` et l'autre `calculate`. Il vous reste à implementer chaque méthode `OnClick` pour remettre à zéro l'application ou pour calculerl'IMC et afficher les bons résultats.
+Pour le 2ème point, créez deux `View.OnClickListener` en attributs de votre classe `ImcActivity`, ce sont les écouteurs d'événements qui seront associés aux boutons dans la fonction `addEventListener`. L'un s'appellera `reset` et l'autre `calculate`. Il vous reste à implementer chaque méthode `onClick` pour remettre à zéro l'application ou pour calculerl'IMC et afficher les bons résultats.
 
-Pour les deux derniers points, je vous conseille de créer deux fonctions privées `loadComponents` et `addEventListeners` regroupant le code à effectuer pour ces deux tâches, il suffira de les appeler dans la fonction `OnCreate`.
+Pour les deux derniers points, je vous conseille de créer deux fonctions privées `loadComponents` et `addEventListeners` regroupant le code à effectuer pour ces deux tâches, il suffira de les appeler dans la fonction `onCreate`.
 
 Voici le schéma UML de votre classe `ImcActivity` :
 
