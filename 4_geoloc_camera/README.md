@@ -322,7 +322,7 @@ Regardez dans le menu "Palette" ! Voici le code de l'élément si besoin :
         android:id="@+id/sv_camera_view"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true">
 
         <!-- Les autres composants -->
 
