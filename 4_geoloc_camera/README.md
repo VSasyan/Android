@@ -245,7 +245,7 @@ Interface de départ :
 
 Interface de prise de photo :
 
-![Prévisualisation sur tout l’écran, la photo est prise au clique](screens/resultat_3_1.png "Prévisualisation sur tout l’écran, la photo est prise au clique")
+![Prévisualisation sur tout l’écran, la photo est prise au clique](screens/resultat_3_2.png "Prévisualisation sur tout l’écran, la photo est prise au clique")
 
 ### Ajout d'un boutton
 
