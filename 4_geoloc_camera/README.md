@@ -308,7 +308,7 @@ C'est dans cette partie que ça se complique. On souhaite afficher une prévisua
 #### Modification de la vue
 
 On doit ajouter à la vue une surface sur laquelle on peut afficher un aperçu.
-La prévisualisation se fera grâce à l'objet `SurfaceView`, modifiez donc la vue de la nouvelle activité pour lui ajouter cet élément (nommé "sv_camera_view".
+La prévisualisation se fera grâce à l'objet `SurfaceView`, modifiez donc la vue de la **nouvelle activité** pour lui ajouter cet élément (nommé "sv_camera_view").
 
 Regardez dans le menu "Palette" ! Voici le code de l'élément si besoin :
 
@@ -322,11 +322,7 @@ Regardez dans le menu "Palette" ! Voici le code de l'élément si besoin :
         android:id="@+id/sv_camera_view"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
-
-        <!-- Les autres composants -->
-
-    </SurfaceView>
+        android:layout_alignParentEnd="true" />
 ```
 
 #### Modification de l'activité
@@ -420,16 +416,16 @@ Voici le code à mettre dans ces méthodes :
 
 ##### Retour à la surface de prévisualisation
 
-Dans la méthode onCreate, il faut initialiser la SurfaceView :
+Dans la méthode onCreate, après avoir exécuté les méthodes `loadCoponents` et `initEventListener`, il faut initialiser la SurfaceView :
 
 ```java
-        surfaceCamera.getHolder().addCallback(this);
-        surfaceCamera.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        sv_camera_view.getHolder().addCallback(this);
+        sv_camera_view.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 ```
 
 La surface est liée à notre activité, lorsque que l'activité est créée, la surface l'est aussi et quand notre activité est détruite, la surface l'est aussi. Les codes d'initialisation et de libération de la caméra peuvent donc être regroupés dans les fonctions de l'activité (`onResume` et `onPause`).
 
-Cependant, quand l'utilisateur va modifier l'orientation de la camera la méthode `surfaceChanged` sera exécutée. Il faut donc que se soit dans cette fonction que l'on gère l'affichage de la prévisualisation sur la surface.
+Cependant, quand l'utilisateur va modifier l'orientation de son téléphone la méthode `surfaceChanged` sera exécutée. Il faut donc que se soit dans cette fonction que l'on gère l'affichage de la prévisualisation sur la surface.
 
 Voici le code à utiliser :
 
@@ -489,7 +485,7 @@ Voici le code à utiliser :
 Pour gérer l’orientation de la prévisualisation, nous allons encore utiliser un écouteur d’évènement l'objet `OrientationEventListener` :
 
 ```java
-    private OrientationEventListener orientationEventListener = new OrientationEventListener(this) {
+    orientationEventListener = new OrientationEventListener(this) {
         public void onOrientationChanged(int orientation) {
             android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
             android.hardware.Camera.getCameraInfo(cameraId, info);
@@ -522,6 +518,7 @@ Pour gérer l’orientation de la prévisualisation, nous allons encore utiliser
         }
     };
 ```
+Il faut ajouter ce code à la fin de la méthode `onCreate`.
 
 Cet écouteur d'événement est désactivé par défaut, il faut l'activer ou le désactiver dans les méthodes `onResume` et `onPause` (`orientationEventListener.enable()` et `orientationEventListener.disabled()`).
 
@@ -614,7 +611,7 @@ Enfin, l'enregistrement à proprement parler de la photo se passe dans la métho
     }
 ```
 
-Il faut ajouter les méthodes suivantes qui permettent de convertir la position GNSS au bon format :
+Il faut ajouter les méthodes suivantes qui permettent de convertir la position GNSS au bon format (dégrés décimaux => dégrés/minutes/secondes) :
 
 ```java
     public String getLatTagGPS() {
