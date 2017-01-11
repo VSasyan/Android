@@ -563,7 +563,7 @@ Enfin, l'enregistrement à proprement parler de la photo se passe dans la métho
 
 ```java
     public void onPictureTaken(byte[] bytes, Camera camera) {
-        File pictureFileDir = Environment.getExternalStoragePublicDirectory(DIRECTORY_PICTURES);
+        File pictureFileDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
         if (!pictureFileDir.exists() && !pictureFileDir.mkdirs()) {
             Toast.makeText(PictureActivity.this, "Can't create directory to save image.", Toast.LENGTH_LONG).show();
