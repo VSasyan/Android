@@ -25,10 +25,10 @@
 
 [Une interface utilisateur avancée](4_geoloc_camera/README.md)
 
-## Les capteurs (facultatif)
-
-[Les capteurs](5_les_capteurs/README.md)
-
 ## Utilisation de SQLite
 
 [Utilisation de SQLite](6_utilisation_sqlite/SQLite.pdf)
+
+## Résumé
+
+[Résumé](7_resume/README.md)

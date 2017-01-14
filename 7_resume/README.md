@@ -44,7 +44,7 @@ Elles sont déclarées dans le dossier "\res\layout\" : il y a un fichier par vu
 
 Conseil :
 * pensez à bien nommer vos composants pour y accéder plus facilement ensuite ;
-* les `LinearLayout` sont un bon moyen de positionner simplement vos composants.
+* les `LinearLayout` sont un bon moyen de positionner simplement vos composants : ils juxtaposent les composants (verticalement `android:orientation="vertical"` ou horizontalement `android:orientation="horizontal"`).
 
 Exemple :
 ```xml
@@ -90,8 +90,6 @@ Exemple :
     </LinearLayout>
 </RelativeLayout>
 ```
-
-Le `LinearLayout` va automatiquement juxtaposer les composants verticalement (`android:orientation="vertical"`) ou horizontalement (`android:orientation="horizontal"`).
 
 ### Les activités
 
@@ -172,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
 Gradle est l'outil qui, dans Android Studio, gère les dépendances et les ressources de votre programme. S'il y a un problème dans Gradle, c'est que vos ressources ne sont pas valides ou qu'une dépendance est mal gérée.
 
 Dans ces cas là, vous verrez en général le `R` de la classe ressource en rouge :
+
 ![Exemple de problème avec Gradle dû à un fichier de ressources non valide](screens/1_erreur_r.png "Exemple de problème avec Gradle dû à un fichier de ressources non valide")
 
 ### Java
@@ -179,6 +178,7 @@ Dans ces cas là, vous verrez en général le `R` de la classe ressource en roug
 #### Déclaration
 
 Une variable affichée en rouge dans Android Studio est une variable non déclarée :
+
 ![Exemple de problème suite à une variable non déclarée](screens/2_erreur_declaration.png "Exemple de problème suite à une variable non déclarée")
 
 Pensez dans ce cas à vérifier la **portée** de la variable qui dépend de l'endroit où elle est déclarée (déclarée en attribut elle sera accessible dans toute la classe, déclarée dans un méthode, elle ne sera accessible que dans cette méthode).
