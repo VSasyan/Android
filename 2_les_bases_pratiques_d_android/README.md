@@ -18,7 +18,7 @@ Grâce à la bonne utilisation des fichiers de ressources, l'application est
 automatiquement traduite (vous pouvez changer la langue de votre téléphone pour voir).
 
 
-## Mise en place
+## Mise en place
 
 Créez un nouveau projet appelé "Dice" :
 
