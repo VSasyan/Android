@@ -281,7 +281,7 @@ Ce lancement s'effectue grâce à l'objet `Intent` :
                 startActivity(intent);
 ```
 
-Le constructeur à besoin d'un contexte et d'une classe activité. On peut ensuite ajouter des variables (ici les coordonnées de l'utilisateur).
+Le constructeur a besoin d'un contexte et d'une classe activité. On peut ensuite ajouter des variables (ici les coordonnées de l'utilisateur).
 
 ### Récupération de la position
 
@@ -654,7 +654,7 @@ La photo est bien **géo-référencée**.
 ## Conclusion
 
 Dans ce chapitre vous avez appris à :
-* lancer une nouvelle activité en lui passant de paramètres ;
+* lancer une nouvelle activité en lui passant des paramètres ;
 * utiliser la géolocalisation ;
 * utiliser l'API Google Maps ;
 * utiliser l'appareil photo ;
