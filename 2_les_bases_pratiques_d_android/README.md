@@ -27,27 +27,29 @@ automatiquement traduite (vous pouvez changer la langue de votre téléphone pou
 
 ## Mise en place
 
-Créez un nouveau projet appelé "Dice" :
+Créez un nouveau projet appelé "TwoSidesOfTheCoin" :
 
-![Écran de création 1/3](screens/1_creation_1.png)
+![Écran de création 1/4](screens/1_creation_1.png)
 
-![Écran de création 2/3](screens/1_creation_2.png)
+![Écran de création 2/4](screens/1_creation_2.png)
 
-![Écran de création 3/3](screens/1_creation_3.png)
+![Écran de création 3/4](screens/1_creation_3.png)
+
+![Écran de création 4/4](screens/1_creation_4.png)
 
 Regardez la structure du projet créé par Android Studio :
 
 ![Structure du projet](screens/2_environnement_1_structure.png)
 
-Ouvrez les fichiers `manifest`, `DiceActivity`, et `activity_dice` en mode Design et Text :
+Ouvrez les fichiers `manifest`, `CoinActivity`, et `activity_coin` en mode Design et Text :
 
 ![Structure du projet](screens/2_environnement_2_manifest.png)
 
-![Structure du projet](screens/2_environnement_3_DiceActivity.png)
+![Structure du projet](screens/2_environnement_3_CoinActivity.png)
 
-![Structure du projet](screens/2_environnement_4_activity_dice_design.png)
+![Structure du projet](screens/2_environnement_4_activity_coin_design.png)
 
-![Structure du projet](screens/2_environnement_5_activity_dice_text.png)
+![Structure du projet](screens/2_environnement_5_activity_coin_text.png)
 
 
 ## Pas à pas des modifications
@@ -55,7 +57,7 @@ Ouvrez les fichiers `manifest`, `DiceActivity`, et `activity_dice` en mode Desig
 ### 1) Modification de la vue
 
 Dans un premier temps, il faut modifier la vue pour ajouter une zone de texte.
-Modifier le TextView automatiquement ajouté par Android Studio : renommez le en `tv_dice_results`, agrandissez-le pour qu'il prenne tout l'espace et videz le texte qu'il contient.
+Modifier le TextView automatiquement ajouté par Android Studio : renommez le en `tv_coin_results`, agrandissez-le pour qu'il prenne tout l'espace et videz le texte qu'il contient.
 
 Vous pouvez effectuer cela en utilisant le mode *Design* qui permet d'éditer facilement les composants graphiques et de modifier les propriétés via le menu de droite. Cependant cette interface est limitée, et il est parfois plus rapide d'utiliser le mode *Text*.
 
@@ -63,16 +65,14 @@ Vous devez obtenir le code suivant :
 
 ```xml
     <TextView
-        android:text=""
+        android:id="@+id/tv_coin_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_dice_results"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentBottom="true" />
 ```
 
 ### 2) Ajout des labels dans les fichiers strings
@@ -105,9 +105,9 @@ Remarquez que le programme a en fait créé un deuxième fichier XML :
 
 Nous allons maintenant modifier l'activité. La méthode `onCreate` est exécutée à la création de l'activité. Comme cette activité est l'activité de démarrage de l'application, cette fonction sera exécutée sans intervention de l'utilisateur.
 
-Vous pouvez voir qu'il y a deux lignes dans la fonction, elle permettent d'afficher la vue, effectuez vos modifications après.
+Vous pouvez voir qu'il y a deux lignes dans la fonction, elles permettent d'afficher la vue. Vous devez effectuer vos modifications après.
 
-Il faut dans un premier temps récupérer le TextView dans la vue, ensuite, on génère un nombre égal à 1 ou 0, enfin, on ajoute dans le TextView le label correspondant au nombre généré.
+Il faut dans un premier temps récupérer le `TextView` de la vue, ensuite, on génère un nombre égal à 1 ou 0, enfin, on ajoute dans le `TextView` le label correspondant au nombre généré.
 
 Voici la fonction onCreate à obtenir :
 
@@ -118,7 +118,7 @@ Voici la fonction onCreate à obtenir :
         setContentView(R.layout.activity_dice);
 
         // Get the TextView
-        TextView tv_diceResults = (TextView)findViewById(R.id.tv_dice_results);
+        TextView tv_diceResults = (TextView)findViewById(R.id.tv_coin_result);
 
         // Creation of a randomGenerator
         Random randomGenerator = new Random();
@@ -148,7 +148,7 @@ La ligne la plus importante est :
         TextView tv_diceResults = (TextView)findViewById(R.id.tv_dice_results);
 ```
 
-Cette ligne permet d'instancier en Java l'objet TestView correspondant au code XML écrit à l'étape **1)**.
+Cette ligne permet d'instancier en Java l'objet `TextView` correspondant au code XML écrit à l'étape **1)**.
 La fonction `findViewById` de signature `View findViewById(String id)` est fournie par l'API d'Android. Elle permet de récupérer n'importe
 quel élément d'une vue et d'en faire un objet Java. Cela permet de pouvoir agir sur l'objet via une fonction Java.
 
@@ -215,10 +215,9 @@ Voici le code XML obtenu :
         android:onClick="coinFlip" />
 
     <TextView
-        android:text=""
+        android:id="@+id/tv_coin_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_dice_results"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
@@ -229,59 +228,98 @@ Voici le code XML obtenu :
 ```
 
 Nous voulons que Java génère un événement lorsque l'utilisateur clique sur le bouton.
-Pour cela, nous devons utiliser un *event listener* (écouteur d'événement). Il y a plusieurs manières pour ajouter un event listener, ici nous l'avons fait directement dans le code XML.
+Pour cela, nous devons utiliser un *event listener* (écouteur d'événement).
 
-La **ligne la plus importante** est le `android:onClick="coinFlip"`, qui permet d'associer le clique d'un utilisateur sur le bouton à la méthode `coinFlip` de l'activité `DiceActivity`. Cela fonctionne **uniquement** car l'activité et la vue sont associées. De plus, la méthode doit être **publique** et avoir une signature particulière pour être appelée par l’événement `onClick` : elle ne doit rien retourner (`void`) et prendre en paramètre une instance de la classe `View` : `void coinFlip(View view)`.
-
-L'*event listener* demande au programme d'écouter les actions de l'utilisateur et d'exécuter la fonction associée à chaque action. On parle de **programmation événementielle**.
-
-### 6) Ajout de la fonction
-
-Retournez dans l'activité `DiceActivity`. Ajoutez une fonction publique `coinFlip`.
-Réagencez le code pour que le programme ajoute le résultat des lancers à la suite des autres.
-
-Modifiez la méthode `onCreate` pour qu'elle appelle la fonction `coinFlip` (au lieu de dupliquer le code). Pour appeler cette fonction, il vous faudra donc lui passer une instance nulle en paramètre (`coinFlip(null);`) qui représente l'objet `View` demandé en paramètre.
-
-Voici le résultat attendu :
+Il faut donc déclarer un écouteur d'événement :
 
 ```java
-public class DiceActivity extends AppCompatActivity {
+    // Declare and Instantiate the event listener
+    View.OnClickListener eventListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // Here we have the function that flip the coin
+        }
+    };
+```
+
+Ensuite il faut définir cet écouteur d'événement comme celui qui doit être utilisé lors du clique sur le bouton :
+
+```java
+    // Declare the button
+    Button b_coin_flip;
+
+    // Instantiate the button
+    b_coin_flip = (Button)findViewById(R.id.b_coin_flip);
+
+    // Define eventListener as the OnClickListener of our button
+    b_coin_flip.setOnClickListener(eventListener);
+```
+
+Vous pouvez à la fin exécuter la fonction `onClick` de l'écouteur d'événement pour lancer une première pièce au démarre de l’application :
+
+```java
+    // Now execute ont time the function to flip the coin at the opening
+    eventListener.onClick(null);
+```
+
+Il faut maintenant déplacer le code qui lançait la pièce dans la fonction `onClick` de la classe d'écoute événementielle.
+
+Voici la structure globale attendue :
+
+```java
+public class CoinActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dice);
-        coinFlip(null);
-    }
+        setContentView(R.layout.activity_coin);
 
-    public void coinFlip(View view) {
-        // Get the TextView
-        TextView tv_diceResults = (TextView)findViewById(R.id.tv_dice_results);
+        // Declare and Instantiate the event listener
+        View.OnClickListener eventListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Here we have the function that flip the coin
 
-        // Creation of a randomGenerator
-        Random randomGenerator = new Random();
+                // Get the TextView
+                TextView tv_diceResults = (TextView)findViewById(R.id.tv_coin_result);
 
-        // Tail or not Tail that is the question?
-        boolean tail = randomGenerator.nextBoolean();
+                // Creation of a randomGenerator
+                Random randomGenerator = new Random();
 
-        // Put the result in a string
-        String result;
-        if (tail) {
-            result = getResources().getString(R.string.tail);
-        } else {
-            result = getResources().getString(R.string.head);
-        }
+                // Tail or not Tail that is the question?
+                boolean tail = randomGenerator.nextBoolean();
 
-        // Get previous results
-        String prevResults = tv_diceResults.getText().toString();
+                // Put the result in a string
+                String result;
+                if (tail) {
+                    result = getResources().getString(R.string.tail);
+                } else {
+                    result = getResources().getString(R.string.head);
+                }
 
-        // Add new result
-        tv_diceResults.setText(prevResults + "\n" + result);
+                // Add the result
+                String finalResult = tv_diceResults.getText().toString() + '\n' + result;
+                tv_diceResults.setText(finalResult);
+            }
+        };
+
+        // Declare the button
+        Button b_coin_flip;
+
+        // Instantiate the button
+        b_coin_flip = (Button)findViewById(R.id.b_coin_flip);
+
+        // Define eventListener as the OnClickListener of our button
+        b_coin_flip.setOnClickListener(eventListener);
+
+        // Now execute ont time the function to flip the coin at the opening
+        eventListener.onClick(null);
     }
 }
 ```
 
-### 7) Scroll
+
+### 6) Scroll
 
 Si l'utilisateur fait beaucoup de « pile ou face », il ne pourra pas scroller pour voir les derniers. Pour cela, il faut mettre le TextView dans une ScrollView.
 
@@ -291,7 +329,8 @@ Voici le code XML obtenu :
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_dice"
     android:layout_width="match_parent"
@@ -300,7 +339,7 @@ Voici le code XML obtenu :
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="fr.ign.sasyan.dice.DiceActivity">
+    tools:context="fr.ign.vsasyan.twosidesofthecoin.CoinActivity" >
 
     <Button
         android:text="@string/coin_flip"
@@ -311,8 +350,7 @@ Voici le code XML obtenu :
         android:layout_alignParentStart="true"
         android:id="@+id/b_coin_flip"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="coinFlip" />
+        android:layout_alignParentEnd="true" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -322,12 +360,11 @@ Voici le code XML obtenu :
         android:layout_alignParentStart="true">
 
         <TextView
-            android:text=""
+            android:id="@+id/tv_coin_result"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_dice_results" />
+            android:layout_height="wrap_content" />
     </ScrollView>
-    
+
 </RelativeLayout>
 ```
 
@@ -343,8 +380,8 @@ Beaucoup de **composants graphiques** existent déjà pour vous aider à dévelo
 
 Pour **agir sur les composants graphiques** il faut :
 * **instancier des objets Java représentant ces composants** (via `findViewById`) ;
-* ajouter des **écouteurs d'événements** (event listerners) (une des manières de le faire est de l'inscrire directement dans le code XML).
+* déclare et associer des **écouteurs d'événements** (event listerners).
 
 ## Projet complet
 
-Vous pouvez retrouver le projet complet ici : [https://bitbucket.org/VSasyan/android_dice](https://bitbucket.org/VSasyan/android_dice)
+Vous pouvez retrouver le projet complet ici : [https://bitbucket.org/VSasyan/android_coin](https://bitbucket.org/VSasyan/android_coin)
