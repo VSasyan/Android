@@ -384,4 +384,4 @@ Pour **agir sur les composants graphiques** il faut :
 
 ## Projet complet
 
-Vous pouvez retrouver le projet complet ici : [https://bitbucket.org/VSasyan/android_coin](https://bitbucket.org/VSasyan/android_coin)
+Vous pouvez retrouver le projet complet ici : [https://bitbucket.org/VSasyan/android_twosidesofthecoin](https://bitbucket.org/VSasyan/android_twosidesofthecoin)
