@@ -4,6 +4,13 @@ Pour mettre en pratique l'utilisation d'Android Studio et prendre
 en main un projet Android, nous allons créer une application simulant
 un lancer de pièce (pile ou face).
 
+## Objectifs
+
+Il y deux objectifs fondamentaux dans cette partie :
+* revoir l'utilisation des objets en Java : Déclaration, Instanciation, Utilisation
+* introduire le concept d'écoute événementielle.
+
+Vous pouvez consulter [ce document](1_les_bases_theoriques_d_android/README.md) pour plus de détails.
 
 ## Le principe de l'application
 

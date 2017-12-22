@@ -11,7 +11,7 @@
 
 ## Les bases (théoriques) d'Android
 
-[Les bases (théoriques) d'Android](<1_les_bases_theoriques_d_android/Les bases (théoriques) d'Android.pdf>)
+[Les bases (théoriques) d'Android](1_les_bases_theoriques_d_android/Les_bases_théoriques_d_Android.pdf)
 
 ## Les bases (pratiques) d'Android
 
