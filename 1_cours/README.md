@@ -1,19 +1,20 @@
-# Rappels et aides supplémentaires
+# Cours
 
-## Les bases (théoriques d'Android)
+## Présentation d'Android
 
 [Voir la présentation en PDF](Les_bases_théoriques_d_Android.pdf)
 
-## Les objets Java
+## Rappel 1 : le Java et les Objets Java
 
-Java est un langage à **typage statique** (contrairement au JavaScript ou au PHP par exemple). Cela implique la déclaration des variables :
+Java est un langage à **typage statique** (contrairement au JavaScript ou au PHP par exemple). Il faut donc déclarer les variables (donner le **type**) avant de les utiliser :
 
 ```java
+    // Déclaration
     int unEntier;
     float unFlottant;
     String uneChaineDeCaracteres;
 
-    // Ensuite je peux les utiliser :
+    // Utilisation
     unEntier = 40;
     unFlottant = 2.42;
     uneChaineDeCaracteres = "Je suis une chaîne de caractères...";
@@ -25,8 +26,9 @@ Java est un langage à **typage statique** (contrairement au JavaScript ou au PH
 Lorsque l'on utilise des Classes, il faut *toujours* **déclarer** et **instancier** la variable, avant de l'utiliser :
 
 ```java
+    // Fichier : Chien.java
 
-    // Déclaration de ma classe
+    // Définition de la classe Chien
     public class Chien {
 
         // Elle a un attribut nom qui est un String
@@ -42,7 +44,13 @@ Lorsque l'on utilise des Classes, il faut *toujours* **déclarer** et **instanci
             System.out.println("{0} : « Wouaf, wouaf ! »".format(this.nom));
         }
     }
+```
 
+```java
+    // Fichier : appli.java
+
+    // Importation de la classe
+    import Chien;
 
     // 1) je déclare la variable :
     Chien chien1;
@@ -61,11 +69,11 @@ Lorsque l'on utilise des Classes, il faut *toujours* **déclarer** et **instanci
     // Erreur type 2 : pas d'instanciation
     Chien chien3;
     chien3.aboyer();
-    // Dans ce cas vous aurez une erreur à l'exécution du code de type : "null does not have aboyer method"
+    // Dans ce cas vous aurez une erreur à l'exécution du code de type : "null does not have method aboyer"
 ```
 
 
-## L'écoute événementielle
+## Rappel 2 : l'écoute événementielle
 
 L'interface graphique nécessite un moyen d'effectuer une certaine tâche lorsque l’utilisateur fait une certaine action (appuyer sur un bouton, glisser l'écran vers la gauche, etc).
 
@@ -88,26 +96,25 @@ Exemple en JavaScript :
     el.addEventListener("click", deconnecterUtilisateur);
 ```
 
-Le principe en Java est exactement le même, sauf qu'en java tout est objet, donc on ne donne pas une fonction à exécuter, mais un objet (dont il faudra exécuter l'une des méthode).
+Le principe en Java est exactement le même (sauf qu'en Java tout est objet, on ne donne donc pas une *fonction* à exécuter mais un *objet* dont il faudra exécuter l'une des méthodes).
 
 ```java
-
     // Je déclare mes variables (le bouton et l'écouteur d’événement)
     View.OnClickListener eventListener;
     Button b_button;
 
-    // J'instancie l'écouteur d'événement : une classe avec un seul méthode qui sera exécuté au clique (d'où le nom...)
+    // J'instancie l'écouteur d'événement : une classe avec une seule méthode "onClick" qui sera exécutée au clic (d'où le nom...)
     eventListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             // La fonction à exécuter au clique
         }
-    }
+    };
 
-    // J'instancie le bouton : je récupéré l’objet de l'interface graphique, et le lie à un objet Java qui le représente
+    // J'instancie le bouton : je récupère l’objet de l'interface graphique et l'instancie en un objet Java qui le représente
     b_button = (Button)findViewById(R.id.b_button);
 
-    // J'ajoute l’écouteur d'événement précédemment crée comme étant l'écouteur de mon bouton
+    // Je définie l’écouteur d'événement précédemment crée comme étant l'écouteur de mon bouton
     b_button.setOnClickListener(eventListener);
 
 ```

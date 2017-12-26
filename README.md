@@ -9,9 +9,9 @@
 * Création de GUI
 * Webmapping sur mobiles
 
-## Les bases (théoriques) d'Android
+## Cours
 
-[Les bases (théoriques) d'Android](1_les_bases_theoriques_d_android/Les_bases_théoriques_d_Android.pdf)
+[Cours](1_cours.pdf)
 
 ## Les bases (pratiques) d'Android
 
